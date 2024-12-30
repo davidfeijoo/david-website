@@ -1,101 +1,356 @@
-import Image from "next/image";
+'use client'; // Mark the component as a client component
+import React, { useState, useRef, useEffect } from "react";
+import { IoIosArrowDown, IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import styles from '@/styles/Main.module.css'; // Import the new module-specific styles
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  const projectsGridRef = useRef<HTMLDivElement | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  // Function to scroll to a specific section by ID
+  const scrollToSection = (sectionId: string) => {
+    const nextSection = document.getElementById(sectionId); // Get the section by ID
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth", block: "start" }); // Smooth scroll to the section, aligned to the top
+    }
+  };
+  const scrollRight = () => {
+    const projectsGrid = document.querySelector(`.${styles.projectsGrid}`);
+    if (projectsGrid) {
+      projectsGrid.scrollBy({ left: 600, behavior: "smooth" }); // Adjust the scroll value as needed
+    }
+  };
+  const scrollLeft = () => {
+    const projectsGrid = document.querySelector(`.${styles.projectsGrid}`);
+    if (projectsGrid) {
+      projectsGrid.scrollBy({ left: -600, behavior: "smooth" }); // Negative value for left scroll
+    }
+  };
+
+  // Update the visibility of arrows based on the scroll position
+  const handleScroll = () => {
+    if (projectsGridRef.current) {
+      const scrollLeftPosition = projectsGridRef.current.scrollLeft;
+      const scrollWidth = projectsGridRef.current.scrollWidth;
+      const clientWidth = projectsGridRef.current.clientWidth;
+
+      // Show or hide left arrow
+      setCanScrollLeft(scrollLeftPosition > 0);
+      // Show or hide right arrow
+      setCanScrollRight(scrollLeftPosition < scrollWidth - clientWidth);
+    }
+  };
+
+  // Use effect to add event listener for scroll
+  useEffect(() => {
+    if (projectsGridRef.current) {
+      projectsGridRef.current.addEventListener("scroll", handleScroll);
+      // Clean up the event listener
+      return () => {
+        if (projectsGridRef.current) {
+          projectsGridRef.current.removeEventListener("scroll", handleScroll);
+        }
+      };
+    }
+  }, []);
+
+  return (
+    <main>
+      {/* Hero Section */}
+      <section className={`${styles.hero} section-header`}>
+        <h1>HELLO, I'M</h1>
+        <h1>DAVID FEIJÓO</h1>
+        <h3>MSc STUDENT AT DTU</h3>
+
+        {/* Arrow icon positioned at the bottom to scroll to the Education Section */}
+        <div className={styles.arrowContainer}>
+          <IoIosArrowDown className={styles.arrow} onClick={() => scrollToSection("first-section")} />
+        </div>
+      </section>
+
+      {/* Education Section */}
+      <section id="first-section" className={`${styles.educationSection} ${styles.section}`}>
+        <h2>Education</h2>
+        <div className={styles.educationGrid}>
+          {/* University 1 */}
+          <div className={styles.educationCard}>
+            <div className={styles.educationLogoContainer}>
+              <img
+                src="/upcLogo.png"
+                alt="UPC Logo"
+                className={`${styles.educationLogo} ${styles.light}`}
+              />
+              <img
+                src="/upcLogo.png"
+                alt="UPC Logo"
+                className={`${styles.educationLogo} ${styles.dark}`}
+              />
+            </div>
+            <img
+              src="/upc.jpg"
+              alt="Polytechnical University of Catalonia (UPC)"
+              className={styles.educationImage}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+            <p className={styles.educationText}>
+              <strong>Polytechnical University of Catalonia (UPC)</strong>
+              <br />
+              BSc in Telecommunications Technologies Engineering, graduated with Honors.
+            </p>
+          </div>
+
+          {/* University 2 */}
+          <div className={styles.educationCard}>
+            <div className={styles.educationLogoContainer}>
+              <img
+                src="/unswLogo.png"
+                alt="UNSW Logo"
+                className={`${styles.educationLogo} ${styles.light}`}
+              />
+              <img
+                src="/unswLogoWhite.png"
+                alt="UNSW Logo"
+                className={`${styles.educationLogo} ${styles.dark}`}
+              />
+            </div>
+            <img
+              src="/unsw.jpg"
+              alt="University of New South Wales"
+              className={styles.educationImage}
+            />
+            <p className={styles.educationText}>
+              <strong>University of New South Wales (UNSW)</strong>
+              <br />
+              Bachelor's Thesis in Signal Processing and Machine Learning.
+            </p>
+          </div>
+
+          {/* University 3 */}
+          <div className={styles.educationCard}>
+            <div className={styles.educationLogoContainer}>
+              <img
+                src="/dtuLogo.png"
+                alt="DTU Logo"
+                className={`${styles.educationLogo} ${styles.light}`}
+              />
+              <img
+                src="/dtuLogo.png"
+                alt="DTU Logo"
+                className={`${styles.educationLogo} ${styles.dark}`}
+              />
+            </div>
+            <img
+              src="/dtu.jpg"
+              alt="Denmark's Technical University (DTU)"
+              className={styles.educationImage}
+            />
+            <p className={styles.educationText}>
+              <strong>Denmark's Technical University (DTU)</strong>
+              <br />
+              MSc in Mathematical Modelling and Computation.
+            </p>
+          </div>
+        </div>
+
+        {/* Arrow icon for scrolling to the Projects Section */}
+        <div className={styles.arrowContainer}>
+          <IoIosArrowDown className={styles.arrow} onClick={() => scrollToSection("projects")} />
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className={styles.projectsSection}>
+        <h2>Projects</h2>
+        <div className={styles.projectWrapper}>
+          <div className={styles.projectsGrid} ref={projectsGridRef}>
+            {/* Project 1 */}
+            <div className={styles.projectCard}>
+              <div className={styles.projectLogoContainer}>
+                <img
+                  src="/upcLogo.png" // Placeholder logo
+                  alt="Overlay Project Logo"
+                  className={`${styles.projectLogo} ${styles.light}`}
+                />
+                <img
+                  src="/upcLogo.png" // Placeholder logo
+                  alt="Overlay Project Logo"
+                  className={`${styles.projectLogo} ${styles.dark}`}
+                />
+              </div>
+              <img
+                src="/upc.jpg" // Placeholder image
+                alt="Overlay Project"
+                className={styles.projectImage}
+              />
+              <p className={styles.projectText}>
+                <strong>Overlay</strong>
+                <br />
+                Description of the Overlay project.
+              </p>
+            </div>
+            {/* Project 1 */}
+            <div className={styles.projectCard}>
+              <div className={styles.projectLogoContainer}>
+                <img
+                  src="/upcLogo.png" // Placeholder logo
+                  alt="Overlay Project Logo"
+                  className={`${styles.projectLogo} ${styles.light}`}
+                />
+                <img
+                  src="/upcLogo.png" // Placeholder logo
+                  alt="Overlay Project Logo"
+                  className={`${styles.projectLogo} ${styles.dark}`}
+                />
+              </div>
+              <img
+                src="/upc.jpg" // Placeholder image
+                alt="Overlay Project"
+                className={styles.projectImage}
+              />
+              <p className={styles.projectText}>
+                <strong>Overlay</strong>
+                <br />
+                Description of the Overlay project.
+              </p>
+            </div>
+            {/* Project 1 */}
+            <div className={styles.projectCard}>
+              <div className={styles.projectLogoContainer}>
+                <img
+                  src="/upcLogo.png" // Placeholder logo
+                  alt="Overlay Project Logo"
+                  className={`${styles.projectLogo} ${styles.light}`}
+                />
+                <img
+                  src="/upcLogo.png" // Placeholder logo
+                  alt="Overlay Project Logo"
+                  className={`${styles.projectLogo} ${styles.dark}`}
+                />
+              </div>
+              <img
+                src="/upc.jpg" // Placeholder image
+                alt="Overlay Project"
+                className={styles.projectImage}
+              />
+              <p className={styles.projectText}>
+                <strong>Overlay</strong>
+                <br />
+                Description of the Overlay project.
+              </p>
+            </div>
+
+            {/* Project 2 */}
+            <div className={styles.projectCard}>
+              <div className={styles.projectLogoContainer}>
+                <img
+                  src="/upcLogo.png" // Placeholder logo
+                  alt="CERN Project Logo"
+                  className={`${styles.projectLogo} ${styles.light}`}
+                />
+                <img
+                  src="/upcLogo.png" // Placeholder logo
+                  alt="CERN Project Logo"
+                  className={`${styles.projectLogo} ${styles.dark}`}
+                />
+              </div>
+              <img
+                src="/upc.jpg" // Placeholder image
+                alt="CERN Project"
+                className={styles.projectImage}
+              />
+              <p className={styles.projectText}>
+                <strong>CERN</strong>
+                <br />
+                Description of the CERN project.
+              </p>
+            </div>
+
+            {/* Project 3 */}
+            <div className={styles.projectCard}>
+              <div className={styles.projectLogoContainer}>
+                <img
+                  src="/upcLogo.png" // Placeholder logo
+                  alt="SER Project Logo"
+                  className={`${styles.projectLogo} ${styles.light}`}
+                />
+                <img
+                  src="/upcLogo.png" // Placeholder logo
+                  alt="SER Project Logo"
+                  className={`${styles.projectLogo} ${styles.dark}`}
+                />
+              </div>
+              <img
+                src="/upc.jpg" // Placeholder image
+                alt="SER Project"
+                className={styles.projectImage}
+              />
+              <p className={styles.projectText}>
+                <strong>SER</strong>
+                <br />
+                Description of the SER project.
+              </p>
+            </div>
+
+            {/* Project 4 */}
+            <div className={styles.projectCard}>
+              <div className={styles.projectLogoContainer}>
+                <img
+                  src="/upcLogo.png" // Placeholder logo
+                  alt="UniConnect Project Logo"
+                  className={`${styles.projectLogo} ${styles.light}`}
+                />
+                <img
+                  src="/upcLogo.png" // Placeholder logo
+                  alt="UniConnect Project Logo"
+                  className={`${styles.projectLogo} ${styles.dark}`}
+                />
+              </div>
+              <img
+                src="/upc.jpg" // Placeholder image
+                alt="UniConnect Project"
+                className={styles.projectImage}
+              />
+              <p className={styles.projectText}>
+                <strong>UniConnect</strong>
+                <br />
+                Description of the UniConnect project.
+              </p>
+            </div>
+          </div>
+          {/* Left Arrow for scrolling to the left */}
+          {canScrollLeft && (
+            <div className={styles.arrowLeftContainer}>
+              <IoIosArrowBack className={styles.arrowLeft} onClick={scrollLeft} />
+            </div>
+          )}
+
+          {/* Right Arrow for scrolling to the right */}
+          {canScrollRight && (
+            <div className={styles.arrowRightContainer}>
+              <IoIosArrowForward className={styles.arrowRight} onClick={scrollRight} />
+            </div>
+          )}
+        </div>
+
+        {/* Arrow icon for scrolling to the next section */}
+        <div className={styles.arrowContainer}>
+          <IoIosArrowDown className={styles.arrow} onClick={() => scrollToSection("contact")} />
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className={styles.contactSection}>
+        <h2>Contact Me :)</h2>
+        <div className={styles.contactInfo}>
+          <div className={styles.contactImageContainer}>
+            <img src="/miFoto.jpg" alt="David Feijóo" className={styles.contactImage} />
+          </div>
+          <a href="mailto:dfeijoo2001@gmail.com" className={styles.contactEmail} >
+            dfeijoo2001@gmail.com
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+    </main>
   );
 }

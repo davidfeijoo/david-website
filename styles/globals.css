@@ -1,0 +1,48 @@
+:root {
+  --background-color: #f2f2f2;
+  --soft-background: hsl(0, 0%, 100%);
+  --foreground: #171717;
+  --primary-color: black;
+  --opposite-color: white;
+  --secondary-color-strong: #213555;
+  --secondary-color-light: #3E5879;
+  --accent-color: #D8C4B6;
+}
+
+[data-theme="dark"] {
+  --background-color: #0a0a0a;
+  --soft-background: hsl(0, 2%, 12%);
+  --foreground: #ededed;
+  --primary-color: white;
+  --opposite-color: black;
+  --secondary-color-strong: #3E5879;
+  --secondary-color-light: #213555;
+  --accent-color: #D8C4B6;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight:400;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  color: var(--primary-color); /* Headings use primary color */
+  margin: 0; /* Reset margin globally */
+  padding: 0;
+}
+
+/* Global Styles for Hiding Scrollbar */
+html {
+  scrollbar-width: none; /* For Firefox: hides scrollbar */
+  scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge: hides scrollbar */
+}

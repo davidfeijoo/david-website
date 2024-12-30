@@ -1,0 +1,99 @@
+body {
+    color: black; /* Default text color for all body text */
+    background-color: var(--background-color); /* Apply background color */
+    font-family: var(--font-montserrat);
+}
+  
+.nav {
+    position: fixed;
+    z-index: 1000; /* Ensure the header is on top of other content */
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    background-color: var(--background-color);  /* Use primary color for background */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logoImage {
+    width: 100px; /* Adjust size as needed */
+    height: 50px;
+    object-fit: cover; /* Ensures the image maintains aspect ratio */
+    margin-right: 10px; /* Adds spacing between the image and any adjacent content */
+}
+  
+.profilePic {
+    width: 50px; /* Adjust size as needed */
+    height: 50px;
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image maintains aspect ratio */
+    margin-right: 10px; /* Adds spacing between the image and any adjacent content */
+}
+  
+.logo h1 {
+    font-size: 2rem;  /* Equivalent to text-2xl in Tailwind */
+    color: var(--primary-color);  /* Use accent color for logo text */
+}
+  
+.navList {
+    list-style: none;
+    display: flex;
+    gap: 3rem;  /* Equivalent to space-x-6 in Tailwind */
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.navList li {
+    display: inline-flex;
+    align-items: center;
+}
+  
+.navLink {
+    /* font-size: 1rem; Base size */
+    font-weight: 400;
+    color: var(--primary-color); /* Default color */
+    text-decoration: none;
+    transition: transform 0.3s ease, color 0.3s ease; /* Smooth transition for hover effects */
+}
+  
+.navLink:hover {
+    color: var(--secondary-color-strong); /* Change color on hover */
+    transform: scale(1.1); /* Slightly increase size on hover */
+    text-decoration: none; /* Keep text clean without underlines */
+}
+
+  
+.navLink:active {
+    color: var(--primary-color);  /* Use primary color when active */
+}
+
+.themeToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-color);
+    border-radius: 50%; /* Makes the button circular */
+    width: 2rem; /* Width of the button */
+    height: 2rem; /* Height of the button */
+    color: var(--background-color);
+    font-size: 1.5rem; /* Icon size */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+  
+.themeToggle:hover {
+    color: var(--secondary-color-strong);
+    background-color: var(--soft-accent-color);
+}
