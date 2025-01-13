@@ -164,79 +164,30 @@ export default function Home() {
         <h2>Projects</h2>
         <div className={styles.projectWrapper}>
           <div className={styles.projectsGrid} ref={projectsGridRef}>
+
             {/* Project 1 */}
             <div className={styles.projectCard}>
               <div className={styles.projectLogoContainer}>
                 <img
-                  src="/upcLogo.png" // Placeholder logo
-                  alt="Overlay Project Logo"
+                  src="/cern.png" // Placeholder logo
+                  alt="Cern Ideasquare Logo"
                   className={`${styles.projectLogo} ${styles.light}`}
                 />
                 <img
-                  src="/upcLogo.png" // Placeholder logo
-                  alt="Overlay Project Logo"
+                  src="/cern.png" // Placeholder logo
+                  alt="Cern Ideasquare Logo"
                   className={`${styles.projectLogo} ${styles.dark}`}
                 />
               </div>
               <img
-                src="/upc.jpg" // Placeholder image
-                alt="Overlay Project"
+                src="/cernImage.jpeg" // Placeholder image
+                alt="Cern Image"
                 className={styles.projectImage}
               />
               <p className={styles.projectText}>
-                <strong>Overlay</strong>
+                <strong>CBI at CERN</strong>
                 <br />
-                Description of the Overlay project.
-              </p>
-            </div>
-            {/* Project 1 */}
-            <div className={styles.projectCard}>
-              <div className={styles.projectLogoContainer}>
-                <img
-                  src="/upcLogo.png" // Placeholder logo
-                  alt="Overlay Project Logo"
-                  className={`${styles.projectLogo} ${styles.light}`}
-                />
-                <img
-                  src="/upcLogo.png" // Placeholder logo
-                  alt="Overlay Project Logo"
-                  className={`${styles.projectLogo} ${styles.dark}`}
-                />
-              </div>
-              <img
-                src="/upc.jpg" // Placeholder image
-                alt="Overlay Project"
-                className={styles.projectImage}
-              />
-              <p className={styles.projectText}>
-                <strong>Overlay</strong>
-                <br />
-                Description of the Overlay project.
-              </p>
-            </div>
-            {/* Project 1 */}
-            <div className={styles.projectCard}>
-              <div className={styles.projectLogoContainer}>
-                <img
-                  src="/upcLogo.png" // Placeholder logo
-                  alt="Overlay Project Logo"
-                  className={`${styles.projectLogo} ${styles.light}`}
-                />
-                <img
-                  src="/upcLogo.png" // Placeholder logo
-                  alt="Overlay Project Logo"
-                  className={`${styles.projectLogo} ${styles.dark}`}
-                />
-              </div>
-              <img
-                src="/upc.jpg" // Placeholder image
-                alt="Overlay Project"
-                className={styles.projectImage}
-              />
-              <p className={styles.projectText}>
-                <strong>Overlay</strong>
-                <br />
-                Description of the Overlay project.
+                European Union project called Challenge Based Innovation (CBI) to find new ways to tackle systemic challenges.
               </p>
             </div>
 
@@ -244,51 +195,51 @@ export default function Home() {
             <div className={styles.projectCard}>
               <div className={styles.projectLogoContainer}>
                 <img
-                  src="/upcLogo.png" // Placeholder logo
-                  alt="CERN Project Logo"
+                  src="/overlay.png" // Placeholder logo
+                  alt="Overlay Logo light"
                   className={`${styles.projectLogo} ${styles.light}`}
                 />
                 <img
-                  src="/upcLogo.png" // Placeholder logo
-                  alt="CERN Project Logo"
+                  src="/overlay.png" // Placeholder logo
+                  alt="Overlay Logo Dark"
                   className={`${styles.projectLogo} ${styles.dark}`}
                 />
               </div>
               <img
-                src="/upc.jpg" // Placeholder image
-                alt="CERN Project"
+                src="/overlayImage.png" // Placeholder image
+                alt="Overlay image"
                 className={styles.projectImage}
               />
               <p className={styles.projectText}>
-                <strong>CERN</strong>
+                <strong>Overlay</strong>
                 <br />
-                Description of the CERN project.
+                Early-stage start-up where we develop multi-agentic systems that integrate with our customers' software.
               </p>
             </div>
-
+      
             {/* Project 3 */}
             <div className={styles.projectCard}>
               <div className={styles.projectLogoContainer}>
                 <img
-                  src="/upcLogo.png" // Placeholder logo
+                  src="/unswLogo.png" // Placeholder logo
                   alt="SER Project Logo"
                   className={`${styles.projectLogo} ${styles.light}`}
                 />
                 <img
-                  src="/upcLogo.png" // Placeholder logo
+                  src="/unswLogoWhite.png" // Placeholder logo
                   alt="SER Project Logo"
                   className={`${styles.projectLogo} ${styles.dark}`}
                 />
               </div>
               <img
-                src="/upc.jpg" // Placeholder image
-                alt="SER Project"
+                src="/serImage.png" // Placeholder image
+                alt="Speech Emotion recognition"
                 className={styles.projectImage}
               />
               <p className={styles.projectText}>
-                <strong>SER</strong>
+                <strong>Speech Emotion Recognition</strong>
                 <br />
-                Description of the SER project.
+                Comparative analysis of methods for the adaptation of Speech Emotion Recognition (SER) systems
               </p>
             </div>
 
@@ -296,28 +247,56 @@ export default function Home() {
             <div className={styles.projectCard}>
               <div className={styles.projectLogoContainer}>
                 <img
-                  src="/upcLogo.png" // Placeholder logo
+                  src="/uniConnectLogo.png" // Placeholder logo
                   alt="UniConnect Project Logo"
                   className={`${styles.projectLogo} ${styles.light}`}
                 />
                 <img
-                  src="/upcLogo.png" // Placeholder logo
+                  src="/uniConnectLogo.png" // Placeholder logo
                   alt="UniConnect Project Logo"
                   className={`${styles.projectLogo} ${styles.dark}`}
                 />
               </div>
               <img
-                src="/upc.jpg" // Placeholder image
+                src="/uniConnectImage.png" // Placeholder image
                 alt="UniConnect Project"
                 className={styles.projectImage}
               />
               <p className={styles.projectText}>
                 <strong>UniConnect</strong>
                 <br />
-                Description of the UniConnect project.
+                Website for students to access quality resources and content.
               </p>
             </div>
-          </div>
+
+            {/* Project 5 */}
+            <div className={styles.projectCard}>
+              <div className={styles.projectLogoContainer}>
+                <img
+                  src="/uniraid.png" // Placeholder logo
+                  alt="UniRaid black"
+                  className={`${styles.projectLogo} ${styles.light}`}
+                />
+                <img
+                  src="/uniraid.png" // Placeholder logo
+                  alt="Uniraid white"
+                  className={`${styles.projectLogo} ${styles.dark}`}
+                />
+              </div>
+              <img
+                src="/uniraidImage.jpg" // Placeholder image
+                alt="UniRaid Image"
+                className={styles.projectImage}
+              />
+              <p className={styles.projectText}>
+                <strong>Uniraid Volunteering</strong>
+                <br />
+                Volunteer in this humanitarian rally that takes place in Morocco.
+                Brought +100 kg of school supplies and other material.
+              </p>
+            </div>
+          </div> {/* End of projectsGrid */}
+          
           {/* Left Arrow for scrolling to the left */}
           {canScrollLeft && (
             <div className={styles.arrowLeftContainer}>
