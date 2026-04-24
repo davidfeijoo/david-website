@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { FaSun, FaMoon } from 'react-icons/fa'; // Import icons
 
-
 export default function Header() {
 
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [mounted, setMounted] = useState(false);
 
   // Load the saved theme from localStorage
   useEffect(() => {
+    setMounted(true);
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     setTheme(savedTheme as 'light' | 'dark');
@@ -25,8 +26,42 @@ export default function Header() {
     localStorage.setItem('theme', newTheme);
   };
 
+  if (!mounted) {
+    return (
+      <nav className={styles.nav}>
+        {/* Logo Section */}
+        <ul className={styles.navList}>
+          <Link href="/" className={styles.navLink}>
+            DAVID FEIJÓO
+          </Link>
+        </ul>
+
+        {/* Navigation Links Placeholder */}
+        <ul className={styles.navList}>
+          <div className={styles.themeTogglePlaceholder} style={{ width: '24px', height: '24px' }} />
+          <li>
+            <Link href="/education" className={styles.navLink}>
+              EDUCATION
+            </Link>
+          </li>
+          <li>
+            <Link href="/projects" className={styles.navLink}>
+              WORK & PROJECTS
+          </Link>
+        </li>
+        <li>
+          <Link href="/" className={styles.navLink}>
+            CONTACT
+          </Link>
+        </li>
+      </ul>
+    </nav>
+    );
+  }
+
   return (
     <nav className={styles.nav}>
+...
       {/* Logo Section */}
       <ul className={styles.navList}>
         <Link href="/" className={styles.navLink}>
