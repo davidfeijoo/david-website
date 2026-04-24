@@ -1,9 +1,3 @@
-body {
-    color: black; /* Default text color for all body text */
-    background-color: var(--background-color); /* Apply background color */
-    font-family: var(--font-montserrat);
-}
-  
 .nav {
     position: fixed;
     z-index: 1000; /* Ensure the header is on top of other content */

@@ -1,6 +1,7 @@
 'use client';
 
 import styles from "@/styles/Header.module.css";  // Import the CSS module
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { FaSun, FaMoon } from 'react-icons/fa'; // Import icons
 
@@ -28,9 +29,9 @@ export default function Header() {
     <nav className={styles.nav}>
       {/* Logo Section */}
       <ul className={styles.navList}>
-        <a href="/" className={styles.navLink}>
+        <Link href="/" className={styles.navLink}>
           DAVID FEIJÓO
-        </a>
+        </Link>
       </ul>
 
       {/* Navigation Links */}
@@ -39,19 +40,19 @@ export default function Header() {
           {theme === 'light' ? <FaMoon />: <FaSun />}
         </button>
         <li>
-          <a href="/education" className={styles.navLink}>
+          <Link href="/education" className={styles.navLink}>
             EDUCATION
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/projects" className={styles.navLink}>
+          <Link href="/projects" className={styles.navLink}>
             WORK & PROJECTS
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/" className={styles.navLink}>
+          <Link href="/" className={styles.navLink}>
             CONTACT
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

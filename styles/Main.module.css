@@ -157,23 +157,23 @@
 }
 
 /* Horizontal Scrollable Projects Grid */
-.projectsWrapper {
+.projectWrapper {
   position: relative; /* For positioning the arrow */
   display: flex; /* Make the wrapper a flex container */
   align-items: center; /* Center items vertically */
   width: 100%;
+  justify-content: center; /* Center content */
 }
 
 /* Horizontal Scrollable Projects Grid */
 .projectsGrid {
-  flex: 1; /* Allow the grid to take the remaining width */
   display: flex; /* Flex container for horizontal scroll */
   overflow-x: auto; /* Enable horizontal scrolling */
   gap: 2rem; /* Space between projects */
-  width: 100%; /* Full width */
-  max-width: 1200px; /* Optional max width */
+  max-width: 75vw; /* Limit the width of the grid */
   justify-items: center; /* Center grid items */
   padding: 1.5rem;  /* Add padding to the grid */
+  scroll-snap-type: x mandatory; /* Enable scroll snapping */
 }
 
 .projectsGrid::-webkit-scrollbar {
@@ -183,13 +183,12 @@
 
 /* Arrow Right */
 .arrowRightContainer {
-  position: absolute;
-  right: 4rem; /* Adjust to position it slightly outside */
-  top: 50%; /* Center the arrow vertically */
-  z-index: 1000; /* Ensure the arrow is above other elements */
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 1rem;
+  flex-shrink: 0;
+  z-index: 1000;
 }
 
 .arrowRight {
@@ -206,13 +205,12 @@
 
 /* Left Arrow */
 .arrowLeftContainer {
-  position: absolute;
-  left: 4rem; /* Adjust to position it on the left */
-  top: 50%; /* Center the arrow vertically */
-  z-index: 1000; /* Ensure the arrow is above other elements */
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 1rem;
+  flex-shrink: 0;
+  z-index: 1000;
 }
 
 .arrowLeft {
@@ -237,6 +235,7 @@
   transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth background color and scaling transition */
   cursor: pointer;
   border-radius: 10px;
+  scroll-snap-align: center; /* Snap card to center */
 }
 
 .projectCard:hover {

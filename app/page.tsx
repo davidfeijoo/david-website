@@ -60,7 +60,7 @@ export default function Home() {
     <main>
       {/* Hero Section */}
       <section className={`${styles.hero} section-header`}>
-        <h1>HELLO, I'M</h1>
+        <h1>HELLO, I&apos;M</h1>
         <h1>DAVID FEIJÓO</h1>
         <h3>MSc STUDENT AT DTU</h3>
 
@@ -122,7 +122,7 @@ export default function Home() {
             <p className={styles.educationText}>
               <strong>University of New South Wales (UNSW)</strong>
               <br />
-              Bachelor's Thesis in Signal Processing and Machine Learning.
+              Bachelor&apos;s Thesis in Signal Processing and Machine Learning.
             </p>
           </div>
 
@@ -146,7 +146,7 @@ export default function Home() {
               className={styles.educationImage}
             />
             <p className={styles.educationText}>
-              <strong>Denmark's Technical University (DTU)</strong>
+              <strong>Denmark&apos;s Technical University (DTU)</strong>
               <br />
               MSc in Mathematical Modelling and Computation.
             </p>
@@ -161,8 +161,17 @@ export default function Home() {
 
       {/* Projects Section */}
       <section id="projects" className={styles.projectsSection}>
-        <h2>Projects</h2>
+        <h2>Work & Projects</h2>
         <div className={styles.projectWrapper}>
+          
+          {/* Left Arrow for scrolling to the left */}
+          <div 
+            className={styles.arrowLeftContainer} 
+            style={{ visibility: canScrollLeft ? 'visible' : 'hidden', pointerEvents: canScrollLeft ? 'auto' : 'none' }}
+          >
+            <IoIosArrowBack className={styles.arrowLeft} onClick={scrollLeft} />
+          </div>
+
           <div className={styles.projectsGrid} ref={projectsGridRef}>
 
             {/* Project 1 */}
@@ -213,10 +222,10 @@ export default function Home() {
               <p className={styles.projectText}>
                 <strong>Overlay</strong>
                 <br />
-                Early-stage start-up where we develop multi-agentic systems that integrate with our customers' software.
+                Early-stage start-up where we develop multi-agentic systems that integrate with our customers&apos; software.
               </p>
             </div>
-      
+
             {/* Project 3 */}
             <div className={styles.projectCard}>
               <div className={styles.projectLogoContainer}>
@@ -243,31 +252,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Project 4 */}
-            <div className={styles.projectCard}>
-              <div className={styles.projectLogoContainer}>
-                <img
-                  src="/uniConnectLogo.png" // Placeholder logo
-                  alt="UniConnect Project Logo"
-                  className={`${styles.projectLogo} ${styles.light}`}
-                />
-                <img
-                  src="/uniConnectLogo.png" // Placeholder logo
-                  alt="UniConnect Project Logo"
-                  className={`${styles.projectLogo} ${styles.dark}`}
-                />
-              </div>
-              <img
-                src="/uniConnectImage.png" // Placeholder image
-                alt="UniConnect Project"
-                className={styles.projectImage}
-              />
-              <p className={styles.projectText}>
-                <strong>UniConnect</strong>
-                <br />
-                Website for students to access quality resources and content.
-              </p>
-            </div>
 
             {/* Project 5 */}
             <div className={styles.projectCard}>
@@ -284,7 +268,7 @@ export default function Home() {
                 />
               </div>
               <img
-                src="/uniraidImage.jpg" // Placeholder image
+                src="/uniraidCoche.JPG" // Placeholder image
                 alt="UniRaid Image"
                 className={styles.projectImage}
               />
@@ -296,20 +280,14 @@ export default function Home() {
               </p>
             </div>
           </div> {/* End of projectsGrid */}
-          
-          {/* Left Arrow for scrolling to the left */}
-          {canScrollLeft && (
-            <div className={styles.arrowLeftContainer}>
-              <IoIosArrowBack className={styles.arrowLeft} onClick={scrollLeft} />
-            </div>
-          )}
 
           {/* Right Arrow for scrolling to the right */}
-          {canScrollRight && (
-            <div className={styles.arrowRightContainer}>
-              <IoIosArrowForward className={styles.arrowRight} onClick={scrollRight} />
-            </div>
-          )}
+          <div 
+            className={styles.arrowRightContainer}
+            style={{ visibility: canScrollRight ? 'visible' : 'hidden', pointerEvents: canScrollRight ? 'auto' : 'none' }}
+          >
+            <IoIosArrowForward className={styles.arrowRight} onClick={scrollRight} />
+          </div>
         </div>
 
         {/* Arrow icon for scrolling to the next section */}
@@ -323,7 +301,7 @@ export default function Home() {
         <h2>Contact Me :)</h2>
         <div className={styles.contactInfo}>
           <div className={styles.contactImageContainer}>
-            <img src="/miFoto.jpg" alt="David Feijóo" className={styles.contactImage} />
+            <img src="/miFoto.jpeg" alt="David Feijóo" className={styles.contactImage} />
           </div>
           <a href="mailto:dfeijoo2001@gmail.com" className={styles.contactEmail} >
             dfeijoo2001@gmail.com

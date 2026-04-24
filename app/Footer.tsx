@@ -4,7 +4,7 @@ import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";  // Import ic
 export default function Footer() {
   return (
     <footer className={styles.footer}>
-      <p>© 2025 David Feijóo</p>
+      <p>© 2026 David Feijóo</p>
       <div className={styles.footerContent}>
         <p className={styles.footerItem}>
           <FaEnvelope className={styles.icon} />
