@@ -147,7 +147,7 @@ export default function ProjectsPage() {
         <h2 className="text-4xl uppercase mb-8">Contact Me :)</h2>
         <div className={styles.contactInfo}>
           <div className={styles.contactImageContainer}>
-            <img src="/miFoto.jpeg" alt="David Feijóo" className={styles.contactImage} />
+            <img src="/Foto perfil.png" alt="David Feijóo" className={styles.contactImage} />
           </div>
           <a href="mailto:dfeijoo2001@gmail.com" className={styles.contactEmail}>
             dfeijoo2001@gmail.com
