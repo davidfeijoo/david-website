@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import Header from "@/app/Header"; // Import the Header component
 import Footer from "@/app/Footer"; // Import the Footer component
 import Sidebar from "@/app/Sidebar";
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 
 import { Montserrat } from 'next/font/google';
 
@@ -15,6 +15,16 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: 'David Feijóo - MSc Student at DTU',
   description: 'Personal portfolio and project showcase of David Feijóo.',
+  formatDetection: {
+    telephone: false,
+    address: false,
+    email: false,
+  },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

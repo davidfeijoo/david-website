@@ -47,21 +47,20 @@ export default function Header() {
           <li>
             <Link href="/projects" className={styles.navLink}>
               WORK & PROJECTS
-          </Link>
-        </li>
-        <li>
-          <Link href="/" className={styles.navLink}>
-            CONTACT
-          </Link>
-        </li>
-      </ul>
-    </nav>
+            </Link>
+          </li>
+          <li>
+            <Link href="/" className={styles.navLink}>
+              CONTACT
+            </Link>
+          </li>
+        </ul>
+      </nav>
     );
   }
 
   return (
     <nav className={styles.nav}>
-...
       {/* Logo Section */}
       <ul className={styles.navList}>
         <Link href="/" className={styles.navLink}>
@@ -72,7 +71,7 @@ export default function Header() {
       {/* Navigation Links */}
       <ul className={styles.navList}>
         <button onClick={toggleTheme} className={styles.themeToggle}>
-          {theme === 'light' ? <FaMoon />: <FaSun />}
+          {theme === 'light' ? <FaMoon /> : <FaSun />}
         </button>
         <li>
           <Link href="/education" className={styles.navLink}>
@@ -93,4 +92,3 @@ export default function Header() {
     </nav>
   );
 }
-
