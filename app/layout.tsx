@@ -1,40 +1,29 @@
 import "@/styles/globals.css";
-import Header from "@/app/Header"; // Import the Header component
-import Footer from "@/app/Footer"; // Import the Footer component
+import Header from "@/app/Header";
+import Footer from "@/app/Footer";
 import Sidebar from "@/app/Sidebar";
-import type { Metadata, Viewport } from 'next';
 
 import { Montserrat } from 'next/font/google';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['300','400', '500', '600', '700', '800', '900'], // Add the weights you need
-  variable: '--font-montserrat', // Use a CSS variable for easier font application
+  weight: ['300','400', '500', '600', '700', '800', '900'],
+  variable: '--font-montserrat',
 });
-
-export const metadata: Metadata = {
-  title: 'David Feijóo - MSc Student at DTU',
-  description: 'Personal portfolio and project showcase of David Feijóo.',
-  formatDetection: {
-    telephone: false,
-    address: false,
-    email: false,
-  },
-};
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={montserrat.variable}>
+      <head>
+        <title>David Feijóo - MSc Student at DTU</title>
+        <meta name="description" content="Personal portfolio and project showcase of David Feijóo." />
+        <meta name="format-detection" content="telephone=no, address=no, email=no" />
+      </head>
       <body className={montserrat.className}>
-        <Header /> {/* Include the Header */}
-        <Sidebar /> {/* Include the Sidebar */}
-        <main>{children}</main> {/* Render the page content */}
-        <Footer /> {/* Include the Footer */}
+        <Header />
+        <Sidebar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
