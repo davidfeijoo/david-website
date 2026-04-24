@@ -66,13 +66,6 @@ const educations = [
 
 export default function EducationPage() {
 
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
     <main className="min-h-screen bg-[var(--background-color)] pb-24">
       

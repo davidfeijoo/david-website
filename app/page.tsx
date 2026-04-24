@@ -45,13 +45,12 @@ export default function Home() {
 
   // Use effect to add event listener for scroll
   useEffect(() => {
-    if (projectsGridRef.current) {
-      projectsGridRef.current.addEventListener("scroll", handleScroll);
+    const currentRef = projectsGridRef.current;
+    if (currentRef) {
+      currentRef.addEventListener("scroll", handleScroll);
       // Clean up the event listener
       return () => {
-        if (projectsGridRef.current) {
-          projectsGridRef.current.removeEventListener("scroll", handleScroll);
-        }
+        currentRef.removeEventListener("scroll", handleScroll);
       };
     }
   }, []);
