@@ -6,8 +6,11 @@ import styles from '@/styles/Main.module.css'; // Import the new module-specific
 export default function Home() {
 
   const projectsGridRef = useRef<HTMLDivElement | null>(null);
+  const educationGridRef = useRef<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [canScrollEduLeft, setCanScrollEduLeft] = useState(false);
+  const [canScrollEduRight, setCanScrollEduRight] = useState(true);
   const [isProfileHovered, setIsProfileHovered] = useState(false);
 
   // Function to scroll to a specific section by ID
@@ -18,42 +21,61 @@ export default function Home() {
     }
   };
   const scrollRight = () => {
-    const projectsGrid = document.querySelector(`.${styles.projectsGrid}`);
-    if (projectsGrid) {
-      projectsGrid.scrollBy({ left: 600, behavior: "smooth" }); // Adjust the scroll value as needed
+    if (projectsGridRef.current) {
+      projectsGridRef.current.scrollBy({ left: 600, behavior: "smooth" });
     }
   };
   const scrollLeft = () => {
-    const projectsGrid = document.querySelector(`.${styles.projectsGrid}`);
-    if (projectsGrid) {
-      projectsGrid.scrollBy({ left: -600, behavior: "smooth" }); // Negative value for left scroll
+    if (projectsGridRef.current) {
+      projectsGridRef.current.scrollBy({ left: -600, behavior: "smooth" });
+    }
+  };
+
+  const scrollEduRight = () => {
+    if (educationGridRef.current) {
+      educationGridRef.current.scrollBy({ left: 600, behavior: "smooth" });
+    }
+  };
+  const scrollEduLeft = () => {
+    if (educationGridRef.current) {
+      educationGridRef.current.scrollBy({ left: -600, behavior: "smooth" });
     }
   };
 
   // Update the visibility of arrows based on the scroll position
-  const handleScroll = () => {
-    if (projectsGridRef.current) {
-      const scrollLeftPosition = projectsGridRef.current.scrollLeft;
-      const scrollWidth = projectsGridRef.current.scrollWidth;
-      const clientWidth = projectsGridRef.current.clientWidth;
+  const handleScroll = (ref: React.RefObject<HTMLDivElement | null>, setLeft: (val: boolean) => void, setRight: (val: boolean) => void) => {
+    if (ref.current) {
+      const scrollLeftPosition = ref.current.scrollLeft;
+      const scrollWidth = ref.current.scrollWidth;
+      const clientWidth = ref.current.clientWidth;
 
-      // Show or hide left arrow
-      setCanScrollLeft(scrollLeftPosition > 0);
-      // Show or hide right arrow
-      setCanScrollRight(scrollLeftPosition < scrollWidth - clientWidth);
+      // Arrows disappear when at start/end (with a small buffer)
+      setLeft(scrollLeftPosition > 5);
+      setRight(scrollLeftPosition < scrollWidth - clientWidth - 5);
     }
   };
 
   // Use effect to add event listener for scroll
   useEffect(() => {
-    const currentRef = projectsGridRef.current;
-    if (currentRef) {
-      currentRef.addEventListener("scroll", handleScroll);
-      // Clean up the event listener
-      return () => {
-        currentRef.removeEventListener("scroll", handleScroll);
-      };
+    const projRef = projectsGridRef.current;
+    const eduRef = educationGridRef.current;
+
+    const onProjScroll = () => handleScroll(projectsGridRef, setCanScrollLeft, setCanScrollRight);
+    const onEduScroll = () => handleScroll(educationGridRef, setCanScrollEduLeft, setCanScrollEduRight);
+
+    if (projRef) {
+      projRef.addEventListener("scroll", onProjScroll);
+      handleScroll(projectsGridRef, setCanScrollLeft, setCanScrollRight);
     }
+    if (eduRef) {
+      eduRef.addEventListener("scroll", onEduScroll);
+      handleScroll(educationGridRef, setCanScrollEduLeft, setCanScrollEduRight);
+    }
+
+    return () => {
+      if (projRef) projRef.removeEventListener("scroll", onProjScroll);
+      if (eduRef) eduRef.removeEventListener("scroll", onEduScroll);
+    };
   }, []);
 
   return (
@@ -74,83 +96,101 @@ export default function Home() {
       {/* Education Section */}
       <section id="first-section" className={`${styles.educationSection} ${styles.section}`}>
         <h2>Education</h2>
-        <div className={styles.educationGrid}>
-          {/* University 1 */}
-          <div className={styles.educationCard}>
-            <div className={styles.educationLogoContainer}>
-              <img
-                src="/upcLogo.png"
-                alt="UPC Logo"
-                className={`${styles.educationLogo} ${styles.light}`}
-              />
-              <img
-                src="/upcLogo.png"
-                alt="UPC Logo"
-                className={`${styles.educationLogo} ${styles.dark}`}
-              />
-            </div>
-            <img
-              src="/upc.jpg"
-              alt="Polytechnical University of Catalonia (UPC)"
-              className={styles.educationImage}
-            />
-            <p className={styles.educationText}>
-              <strong>Polytechnical University of Catalonia (UPC)</strong>
-              <br />
-              BSc in Telecommunications Technologies Engineering, graduated with Honors.
-            </p>
+        <div className={styles.educationWrapper}>
+          {/* Left Arrow */}
+          <div 
+            className={styles.arrowLeftContainer} 
+            style={{ visibility: canScrollEduLeft ? 'visible' : 'hidden', pointerEvents: canScrollEduLeft ? 'auto' : 'none' }}
+          >
+            <IoIosArrowBack className={styles.arrowLeft} onClick={scrollEduLeft} />
           </div>
 
-          {/* University 2 */}
-          <div className={styles.educationCard}>
-            <div className={styles.educationLogoContainer}>
+          <div className={styles.educationGrid} ref={educationGridRef}>
+            {/* University 1 */}
+            <div className={styles.educationCard}>
+              <div className={styles.educationLogoContainer}>
+                <img
+                  src="/upcLogo.png"
+                  alt="UPC Logo"
+                  className={`${styles.educationLogo} ${styles.light}`}
+                />
+                <img
+                  src="/upcLogo.png"
+                  alt="UPC Logo"
+                  className={`${styles.educationLogo} ${styles.dark}`}
+                />
+              </div>
               <img
-                src="/unswLogo.png"
-                alt="UNSW Logo"
-                className={`${styles.educationLogo} ${styles.light}`}
+                src="/upc.jpg"
+                alt="Polytechnical University of Catalonia (UPC)"
+                className={styles.educationImage}
               />
-              <img
-                src="/unswLogoWhite.png"
-                alt="UNSW Logo"
-                className={`${styles.educationLogo} ${styles.dark}`}
-              />
+              <p className={styles.educationText}>
+                <strong>Polytechnical University of Catalonia (UPC)</strong>
+                <br />
+                BSc in Telecommunications Technologies Engineering, graduated with Honors.
+              </p>
             </div>
-            <img
-              src="/unsw.jpg"
-              alt="University of New South Wales"
-              className={styles.educationImage}
-            />
-            <p className={styles.educationText}>
-              <strong>University of New South Wales (UNSW)</strong>
-              <br />
-              Bachelor&apos;s Thesis in Signal Processing and Machine Learning.
-            </p>
+
+            {/* University 2 */}
+            <div className={styles.educationCard}>
+              <div className={styles.educationLogoContainer}>
+                <img
+                  src="/unswLogo.png"
+                  alt="UNSW Logo"
+                  className={`${styles.educationLogo} ${styles.light}`}
+                />
+                <img
+                  src="/unswLogoWhite.png"
+                  alt="UNSW Logo"
+                  className={`${styles.educationLogo} ${styles.dark}`}
+                />
+              </div>
+              <img
+                src="/unsw.jpg"
+                alt="University of New South Wales"
+                className={styles.educationImage}
+              />
+              <p className={styles.educationText}>
+                <strong>University of New South Wales (UNSW)</strong>
+                <br />
+                Bachelor&apos;s Thesis in Signal Processing and Machine Learning.
+              </p>
+            </div>
+
+            {/* University 3 */}
+            <div className={styles.educationCard}>
+              <div className={styles.educationLogoContainer}>
+                <img
+                  src="/dtuLogo.png"
+                  alt="DTU Logo"
+                  className={`${styles.educationLogo} ${styles.light}`}
+                />
+                <img
+                  src="/dtuLogo.png"
+                  alt="DTU Logo"
+                  className={`${styles.educationLogo} ${styles.dark}`}
+                />
+              </div>
+              <img
+                src="/DTU.jpg"
+                alt="Denmark's Technical University (DTU)"
+                className={styles.educationImage}
+              />
+              <p className={styles.educationText}>
+                <strong>Denmark&apos;s Technical University (DTU)</strong>
+                <br />
+                MSc in Mathematical Modelling and Computation.
+              </p>
+            </div>
           </div>
 
-          {/* University 3 */}
-          <div className={styles.educationCard}>
-            <div className={styles.educationLogoContainer}>
-              <img
-                src="/dtuLogo.png"
-                alt="DTU Logo"
-                className={`${styles.educationLogo} ${styles.light}`}
-              />
-              <img
-                src="/dtuLogo.png"
-                alt="DTU Logo"
-                className={`${styles.educationLogo} ${styles.dark}`}
-              />
-            </div>
-            <img
-              src="/DTU.jpg"
-              alt="Denmark's Technical University (DTU)"
-              className={styles.educationImage}
-            />
-            <p className={styles.educationText}>
-              <strong>Denmark&apos;s Technical University (DTU)</strong>
-              <br />
-              MSc in Mathematical Modelling and Computation.
-            </p>
+          {/* Right Arrow */}
+          <div 
+            className={styles.arrowRightContainer}
+            style={{ visibility: canScrollEduRight ? 'visible' : 'hidden', pointerEvents: canScrollEduRight ? 'auto' : 'none' }}
+          >
+            <IoIosArrowForward className={styles.arrowRight} onClick={scrollEduRight} />
           </div>
         </div>
 
@@ -325,7 +365,7 @@ export default function Home() {
 
       {/* Contact Section */}
       <section id="contact" className={styles.contactSection}>
-        <h2>Contact Me :)</h2>
+        <h2>Contact</h2>
         <div className={styles.contactInfo}>
           <div 
             className={`${styles.contactImageContainer} ${isProfileHovered ? styles.enlarged : ''}`}

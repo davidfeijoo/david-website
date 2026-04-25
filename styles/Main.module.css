@@ -11,6 +11,14 @@
   padding: 0;
 }
 
+@media (max-width: 768px) {
+  .hero h1 { font-size: 3rem; }
+  .hero h3 { font-size: 1.5rem; }
+
+  .arrowContainer { bottom: 5px; }
+  .educationSection, .projectsSection { padding-bottom: 60px; }
+}
+
 .hero h1 {
   font-size: 4rem;
   font-weight: 400;
@@ -47,6 +55,7 @@
   text-align: center;
   background-color: var(--background-color);
   position: relative;
+  scroll-margin-top: 20px;
 }
 
 .educationSection h2 {
@@ -56,23 +65,40 @@
   text-transform: uppercase;
   line-height: 1.2;
   margin: 0;
-  margin-bottom: 2rem; /* Increased margin */
+  margin-bottom: 0.5rem;
+}
+
+.educationWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
 }
 
 .educationGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex; /* Changed from grid to flex for horizontal scroll */
+  overflow-x: auto;
   gap: 2rem;
   width: 100%;
-  max-width: 1200px;
-  margin-top: 1rem;
-  justify-items: center;
+  max-width: 75vw;
+  margin-top: 0;
+  padding: 0.75rem 1.5rem;
+  scroll-snap-type: x mandatory;
+  justify-content: flex-start;
 }
 
-@media (max-width: 768px) {
+.educationGrid::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 1024px) {
   .educationGrid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
+    justify-content: center;
+    overflow-x: visible;
   }
 }
 
@@ -86,6 +112,15 @@
   border-radius: 20px; /* More rounded */
   text-decoration: none; /* Remove link underlining */
   color: inherit; /* Keep text color */
+  flex-shrink: 0;
+  width: 300px;
+  scroll-snap-align: center;
+}
+
+@media (max-width: 768px) {
+  .educationCard {
+    width: 260px;
+  }
 }
 
 .educationCard:hover {
@@ -305,6 +340,7 @@
   text-align: center; /* Center text */
   background-color: var(--background-color);
   position: relative; /* For positioning the arrow */
+  scroll-margin-top: 20px; /* Adjust for fixed nav */
 }
 
 
@@ -463,12 +499,11 @@
 }
 
 .contactSection h2 {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 400;
   color: var(--primary-color);
   margin-bottom: 1rem;
   text-transform: uppercase;
-
 }
 
 .contactInfo {
@@ -557,4 +592,30 @@
 .arrow:hover {
   transform: translateY(5px);
   color: var(--secondary-color-strong);
+}
+
+@media (max-width: 768px) {
+  .educationSection h2, .projectsSection h2, .contactSection h2 { font-size: 1.8rem; }
+  .contactEmail { font-size: clamp(0.5rem, 4vw, 1rem); }
+
+  /* Fit education section within mobile viewport (fixed nav is 80px) */
+  .educationSection { min-height: calc(100vh - 80px); padding-bottom: 0; }
+  .educationCard { width: 220px; padding: 0.75rem; }
+  .educationGrid {
+    max-width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.75rem 0;
+    padding-left: calc(50% - 110px);
+    padding-right: calc(50% - 110px);
+  }
+  .projectsGrid {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75rem 0;
+    padding-left: calc(50% - 150px);
+    padding-right: calc(50% - 150px);
+  }
+  .educationLogoContainer { height: 60px; margin-bottom: 0.5rem; }
+  .educationImage { height: 180px; width: 150px; margin-bottom: 0.5rem; }
+  .arrowLeftContainer, .arrowRightContainer { display: none; }
 }

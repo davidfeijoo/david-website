@@ -33,8 +33,8 @@ export default function ProjectsPage() {
       const scrollWidth = projectsGridRef.current.scrollWidth;
       const clientWidth = projectsGridRef.current.clientWidth;
 
-      setCanScrollLeft(scrollLeftPosition > 0);
-      setCanScrollRight(scrollLeftPosition < scrollWidth - clientWidth - 5); // Added small buffer
+      setCanScrollLeft(scrollLeftPosition > 5);
+      setCanScrollRight(scrollLeftPosition < scrollWidth - clientWidth - 5);
     }
   };
 
