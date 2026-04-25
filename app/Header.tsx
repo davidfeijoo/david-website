@@ -31,7 +31,7 @@ export default function Header() {
       <nav className={styles.nav}>
         {/* Logo Section */}
         <ul className={styles.navList}>
-          <Link href="/" className={styles.navLink}>
+          <Link href="/#intro" className={styles.navLink}>
             DAVID FEIJÓO
           </Link>
         </ul>
@@ -50,7 +50,7 @@ export default function Header() {
             </Link>
           </li>
           <li>
-            <Link href="/" className={styles.navLink}>
+            <Link href="/#contact" className={styles.navLink}>
               CONTACT
             </Link>
           </li>
@@ -63,7 +63,7 @@ export default function Header() {
     <nav className={styles.nav}>
       {/* Logo Section */}
       <ul className={styles.navList}>
-        <Link href="/" className={styles.navLink}>
+        <Link href="/#intro" className={styles.navLink}>
           DAVID FEIJÓO
         </Link>
       </ul>
@@ -84,7 +84,7 @@ export default function Header() {
           </Link>
         </li>
         <li>
-          <Link href="/" className={styles.navLink}>
+          <Link href="/#contact" className={styles.navLink}>
             CONTACT
           </Link>
         </li>

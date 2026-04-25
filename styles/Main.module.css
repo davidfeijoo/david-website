@@ -37,16 +37,16 @@
   }
 }
 
-/* Education Section */
+/* Education Section (Home Page Grid) */
 .educationSection {
-  height: 100vh; /* Full height of the viewport */
-  display: flex; /* Flexbox for alignment */
-  flex-direction: column; /* Stack items vertically */
-  justify-content: center; /* Center items vertically */
-  align-items: center; /* Center items horizontally */
-  text-align: center; /* Center text */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   background-color: var(--background-color);
-  position: relative; /* For positioning the arrow */
+  position: relative;
 }
 
 .educationSection h2 {
@@ -56,18 +56,24 @@
   text-transform: uppercase;
   line-height: 1.2;
   margin: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem; /* Increased margin */
 }
 
-/* Education Grid */
 .educationGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three columns */
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  width: 100%; /* Full width */
-  max-width: 1200px; /* Optional max width */
+  width: 100%;
+  max-width: 1200px;
   margin-top: 1rem;
-  justify-items: center; /* Center grid items */
+  justify-items: center;
+}
+
+@media (max-width: 768px) {
+  .educationGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
 }
 
 .educationCard {
@@ -75,64 +81,219 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth background color and scaling transition */
-  padding-top: 0.5rem;
-  border-radius: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  padding: 1.5rem; /* Added padding */
+  border-radius: 20px; /* More rounded */
+  text-decoration: none; /* Remove link underlining */
+  color: inherit; /* Keep text color */
 }
 
-/* Education Card Hover Effect */
 .educationCard:hover {
-  background-color: var(--soft-background); /* Change to desired hover color */
-  transform: scale(1.05); /* Slightly grow the card */
+  background-color: var(--soft-background);
+  transform: scale(1.05);
 }
 
-/* Education Logos */
+/* Education Vertical Card Elements */
 .educationLogoContainer {
-  width: 200px; /* Fixed width for logos */
-  height: 100px; /* Fixed height for logos */
+  width: 150px; /* Reduced from 200px */
+  height: 80px;  /* Reduced from 100px */
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10%;
   overflow: hidden;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .educationLogo {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  display: none; /* Initially hide all logos */
+  display: none; /* Initially hide both */
 }
 
-/* Light mode logos - this will display the light logos in light mode */
+/* Show correct logo based on theme */
 .educationLogo.light {
   display: block;
 }
 
-/* Dark mode logos - This will display the dark logos in dark mode */
 [data-theme="dark"] .educationLogo.light {
-  display: none; /* Hide the light logos in dark mode */
+  display: none;
 }
 
 [data-theme="dark"] .educationLogo.dark {
-  display: block; /* Show the dark logos in dark mode */
+  display: block;
 }
 
-
 .educationImage {
-  width: 200px; /* Fixed width */
-  height: 300px; /* Fixed height */
+  width: 180px; /* Controlled size for vertical cards */
+  height: 250px;
   border-radius: 10px;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
 }
 
 .educationText {
-  margin-top: 1rem;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  max-width: 250px;
+}
+
+.educationText strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Detailed Horizontal Blocks (For Education Page Details) */
+.educationDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 4rem auto; /* Removed top margin, using section padding */
+  padding: 0 2rem;
+}
+
+.educationDetailsBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4rem;
+  padding: 3rem;
+  border-radius: 30px;
+  background-color: transparent;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.educationDetailsBlock:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.educationDetailsBlock:hover {
+  background-color: var(--soft-background);
+  transform: translateY(-5px); /* Subtle lift instead of just color */
+}
+
+.detailsContent {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detailsHeader {
+  border-bottom: 2px solid var(--secondary-color-light);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.detailsHeader h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
   color: var(--primary-color);
 }
+
+.detailsMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.detailsDegree {
+  font-size: 1.3rem;
+  color: var(--secondary-color-strong);
+  font-weight: 500;
+}
+
+.detailsDate {
+  font-family: monospace;
+  background: var(--background-color);
+  color: var(--primary-color);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.detailsCard {
+  background: var(--background-color);
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid rgba(0,0,0,0.1); /* More visible border */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: background-color 0.3s ease;
+}
+
+/* Ensure sub-cards don't blend in on hover */
+.educationDetailsBlock:hover .detailsCard {
+  background: var(--background-color); /* Maintain contrast */
+}
+
+.detailsCard h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.detailsCard p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+.detailsImageContainer {
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+  background: var(--soft-background);
+  border-radius: 20px;
+  border: 2px dashed var(--secondary-color-light);
+  color: var(--secondary-color-light);
+  font-style: italic;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.detailsImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@media (max-width: 992px) {
+  .educationDetailsBlock, .educationDetailsBlock:nth-child(even) {
+    flex-direction: column;
+    padding: 2rem;
+  }
+  
+  .detailsImageContainer {
+    width: 100%;
+    min-height: 250px;
+  }
+}
+
 
 /* Projects Section */
 .projectsSection {
@@ -324,12 +485,43 @@
   overflow: hidden;
   margin-bottom: 2rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-radius 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.contactImageContainer.enlarged {
+  transform: scale(3.5);
+  z-index: 1200;
+  border-radius: 50%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .contactImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Overlay for shading out everything else */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1100;
+  pointer-events: none;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
 }
 
 .contactEmail {

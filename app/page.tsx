@@ -8,6 +8,7 @@ export default function Home() {
   const projectsGridRef = useRef<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isProfileHovered, setIsProfileHovered] = useState(false);
 
   // Function to scroll to a specific section by ID
   const scrollToSection = (sectionId: string) => {
@@ -57,8 +58,9 @@ export default function Home() {
 
   return (
     <main>
+      <div className={`${styles.overlay} ${isProfileHovered ? styles.active : ''}`} />
       {/* Hero Section */}
-      <section className={`${styles.hero} section-header`}>
+      <section id="intro" className={`${styles.hero} section-header`}>
         <h1>HELLO, I&apos;M</h1>
         <h1>DAVID FEIJÓO</h1>
         <h3>MSc STUDENT AT DTU</h3>
@@ -140,7 +142,7 @@ export default function Home() {
               />
             </div>
             <img
-              src="/dtu.jpg"
+              src="/DTU.jpg"
               alt="Denmark's Technical University (DTU)"
               className={styles.educationImage}
             />
@@ -172,6 +174,32 @@ export default function Home() {
           </div>
 
           <div className={styles.projectsGrid} ref={projectsGridRef}>
+
+            {/* ECB Project */}
+            <div className={styles.projectCard}>
+              <div className={styles.projectLogoContainer}>
+                <img
+                  src="/ecbLogo.png"
+                  alt="ECB Logo"
+                  className={`${styles.projectLogo} ${styles.light}`}
+                />
+                <img
+                  src="/ecbLogo.png"
+                  alt="ECB Logo"
+                  className={`${styles.projectLogo} ${styles.dark}`}
+                />
+              </div>
+              <img
+                src="/ecbImage.jpeg"
+                alt="ECB Image"
+                className={styles.projectImage}
+              />
+              <p className={styles.projectText}>
+                <strong>Technology and Innovation <br />at ECB</strong>
+                <br />
+                Working at the Technology and Innovation Division, click to discover more!
+              </p>
+            </div>
 
             {/* Project 1 */}
             <div className={styles.projectCard}>
@@ -299,7 +327,11 @@ export default function Home() {
       <section id="contact" className={styles.contactSection}>
         <h2>Contact Me :)</h2>
         <div className={styles.contactInfo}>
-          <div className={styles.contactImageContainer}>
+          <div 
+            className={`${styles.contactImageContainer} ${isProfileHovered ? styles.enlarged : ''}`}
+            onMouseEnter={() => setIsProfileHovered(true)}
+            onMouseLeave={() => setIsProfileHovered(false)}
+          >
             <img src="/Foto perfil.png" alt="David Feijóo" className={styles.contactImage} />
           </div>
           <a href="mailto:dfeijoo2001@gmail.com" className={styles.contactEmail} >
