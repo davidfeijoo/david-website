@@ -44,6 +44,25 @@
     transform: scale(1.5); /* Scale the icon on hover */
 }
 
+/* Expanded state for contact section */
+.sidebar.expanded {
+    gap: 2rem;
+}
+
+.sidebar.hidden {
+    display: none;
+}
+
+.sidebar.expanded .icon,
+.sidebar.expanded .cvIcon {
+    transform: scale(1.8);
+}
+
+.sidebar.expanded .cvDownloadLink span {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
 /* Styling for regular sidebar items */
 .sidebar .icon {
     color: var(--primary-color);

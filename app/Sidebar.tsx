@@ -1,11 +1,15 @@
+'use client';
+
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { AiOutlineCloudDownload } from "react-icons/ai";
 import styles from "@/styles/Sidebar.module.css";  // Import the CSS module
-
+import { useScroll } from "./ScrollContext";
 
 export default function Sidebar() {
+  const { isContactActive } = useScroll();
+
   return (
-    <div className={styles.sidebar}>
+    <div className={`${styles.sidebar} ${isContactActive ? styles.hidden : ''}`}>
       {/* CV Downloader icon */}
       <a href="/cv.pdf" download className={styles.cvDownloadLink}>
         <AiOutlineCloudDownload className={styles.cvIcon} />

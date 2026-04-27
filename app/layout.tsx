@@ -11,6 +11,8 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
 });
 
+import { ScrollProvider } from "@/app/ScrollContext";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={montserrat.variable}>
@@ -20,10 +22,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="format-detection" content="telephone=no, address=no, email=no" />
       </head>
       <body className={montserrat.className}>
-        <Header />
-        <Sidebar />
-        <main>{children}</main>
-        <Footer />
+        <ScrollProvider>
+          <Header />
+          <Sidebar />
+          <main>{children}</main>
+          <Footer />
+        </ScrollProvider>
       </body>
     </html>
   );

@@ -1,17 +1,27 @@
 'use client'; // Mark the component as a client component
 import React, { useState, useRef, useEffect } from "react";
 import { IoIosArrowDown, IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { AiOutlineCloudDownload } from "react-icons/ai";
 import styles from '@/styles/Main.module.css'; // Import the new module-specific styles
+import { useScroll } from "./ScrollContext";
 
 export default function Home() {
 
+  const experienceGridRef = useRef<HTMLDivElement | null>(null);
   const projectsGridRef = useRef<HTMLDivElement | null>(null);
   const educationGridRef = useRef<HTMLDivElement | null>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const contactRef = useRef<HTMLElement | null>(null);
+
+  const [canScrollExpLeft, setCanScrollExpLeft] = useState(false);
+  const [canScrollExpRight, setCanScrollExpRight] = useState(true);
+  const [canScrollProjLeft, setCanScrollProjLeft] = useState(false);
+  const [canScrollProjRight, setCanScrollProjRight] = useState(true);
   const [canScrollEduLeft, setCanScrollEduLeft] = useState(false);
   const [canScrollEduRight, setCanScrollEduRight] = useState(true);
   const [isProfileHovered, setIsProfileHovered] = useState(false);
+
+  const { setIsContactActive } = useScroll();
 
   // Function to scroll to a specific section by ID
   const scrollToSection = (sectionId: string) => {
@@ -20,25 +30,10 @@ export default function Home() {
       nextSection.scrollIntoView({ behavior: "smooth", block: "start" }); // Smooth scroll to the section, aligned to the top
     }
   };
-  const scrollRight = () => {
-    if (projectsGridRef.current) {
-      projectsGridRef.current.scrollBy({ left: 600, behavior: "smooth" });
-    }
-  };
-  const scrollLeft = () => {
-    if (projectsGridRef.current) {
-      projectsGridRef.current.scrollBy({ left: -600, behavior: "smooth" });
-    }
-  };
 
-  const scrollEduRight = () => {
-    if (educationGridRef.current) {
-      educationGridRef.current.scrollBy({ left: 600, behavior: "smooth" });
-    }
-  };
-  const scrollEduLeft = () => {
-    if (educationGridRef.current) {
-      educationGridRef.current.scrollBy({ left: -600, behavior: "smooth" });
+  const scrollGrid = (ref: React.RefObject<HTMLDivElement | null>, distance: number) => {
+    if (ref.current) {
+      ref.current.scrollBy({ left: distance, behavior: "smooth" });
     }
   };
 
@@ -55,28 +50,48 @@ export default function Home() {
     }
   };
 
-  // Use effect to add event listener for scroll
+  // Use effect to add event listener for scroll and IntersectionObserver
   useEffect(() => {
+    const expRef = experienceGridRef.current;
     const projRef = projectsGridRef.current;
     const eduRef = educationGridRef.current;
 
-    const onProjScroll = () => handleScroll(projectsGridRef, setCanScrollLeft, setCanScrollRight);
+    const onExpScroll = () => handleScroll(experienceGridRef, setCanScrollExpLeft, setCanScrollExpRight);
+    const onProjScroll = () => handleScroll(projectsGridRef, setCanScrollProjLeft, setCanScrollProjRight);
     const onEduScroll = () => handleScroll(educationGridRef, setCanScrollEduLeft, setCanScrollEduRight);
 
+    if (expRef) {
+      expRef.addEventListener("scroll", onExpScroll);
+      handleScroll(experienceGridRef, setCanScrollExpLeft, setCanScrollExpRight);
+    }
     if (projRef) {
       projRef.addEventListener("scroll", onProjScroll);
-      handleScroll(projectsGridRef, setCanScrollLeft, setCanScrollRight);
+      handleScroll(projectsGridRef, setCanScrollProjLeft, setCanScrollProjRight);
     }
     if (eduRef) {
       eduRef.addEventListener("scroll", onEduScroll);
       handleScroll(educationGridRef, setCanScrollEduLeft, setCanScrollEduRight);
     }
 
+    // IntersectionObserver for contact section
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsContactActive(entry.isIntersecting);
+      },
+      { threshold: 0.5 } // Trigger when 50% of the section is visible
+    );
+
+    if (contactRef.current) {
+      observer.observe(contactRef.current);
+    }
+
     return () => {
+      if (expRef) expRef.removeEventListener("scroll", onExpScroll);
       if (projRef) projRef.removeEventListener("scroll", onProjScroll);
       if (eduRef) eduRef.removeEventListener("scroll", onEduScroll);
+      if (contactRef.current) observer.unobserve(contactRef.current);
     };
-  }, []);
+  }, [setIsContactActive]);
 
   return (
     <main>
@@ -102,55 +117,31 @@ export default function Home() {
             className={styles.arrowLeftContainer} 
             style={{ visibility: canScrollEduLeft ? 'visible' : 'hidden', pointerEvents: canScrollEduLeft ? 'auto' : 'none' }}
           >
-            <IoIosArrowBack className={styles.arrowLeft} onClick={scrollEduLeft} />
+            <IoIosArrowBack className={styles.arrowLeft} onClick={() => scrollGrid(educationGridRef, -600)} />
           </div>
 
           <div className={styles.educationGrid} ref={educationGridRef}>
-            {/* University 1 */}
+            {/* University 1: DTU */}
             <div className={styles.educationCard}>
               <div className={styles.educationLogoContainer}>
-                <img
-                  src="/upcLogo.png"
-                  alt="UPC Logo"
-                  className={`${styles.educationLogo} ${styles.light}`}
-                />
-                <img
-                  src="/upcLogo.png"
-                  alt="UPC Logo"
-                  className={`${styles.educationLogo} ${styles.dark}`}
-                />
+                <img src="/dtuLogo.png" alt="DTU Logo" className={`${styles.educationLogo} ${styles.light}`} />
+                <img src="/dtuLogo.png" alt="DTU Logo" className={`${styles.educationLogo} ${styles.dark}`} />
               </div>
-              <img
-                src="/upc.jpg"
-                alt="Polytechnical University of Catalonia (UPC)"
-                className={styles.educationImage}
-              />
+              <img src="/DTU.jpg" alt="DTU" className={styles.educationImage} />
               <p className={styles.educationText}>
-                <strong>Polytechnical University of Catalonia (UPC)</strong>
+                <strong>Denmark&apos;s Technical University (DTU)</strong>
                 <br />
-                BSc in Telecommunications Technologies Engineering, graduated with Honors.
+                MSc in Mathematical Modelling and Computation.
               </p>
             </div>
 
-            {/* University 2 */}
+            {/* University 2: UNSW */}
             <div className={styles.educationCard}>
               <div className={styles.educationLogoContainer}>
-                <img
-                  src="/unswLogo.png"
-                  alt="UNSW Logo"
-                  className={`${styles.educationLogo} ${styles.light}`}
-                />
-                <img
-                  src="/unswLogoWhite.png"
-                  alt="UNSW Logo"
-                  className={`${styles.educationLogo} ${styles.dark}`}
-                />
+                <img src="/unswLogo.png" alt="UNSW Logo" className={`${styles.educationLogo} ${styles.light}`} />
+                <img src="/unswLogoWhite.png" alt="UNSW Logo" className={`${styles.educationLogo} ${styles.dark}`} />
               </div>
-              <img
-                src="/unsw.jpg"
-                alt="University of New South Wales"
-                className={styles.educationImage}
-              />
+              <img src="/unsw.jpg" alt="UNSW" className={styles.educationImage} />
               <p className={styles.educationText}>
                 <strong>University of New South Wales (UNSW)</strong>
                 <br />
@@ -158,29 +149,17 @@ export default function Home() {
               </p>
             </div>
 
-            {/* University 3 */}
+            {/* University 3: UPC */}
             <div className={styles.educationCard}>
               <div className={styles.educationLogoContainer}>
-                <img
-                  src="/dtuLogo.png"
-                  alt="DTU Logo"
-                  className={`${styles.educationLogo} ${styles.light}`}
-                />
-                <img
-                  src="/dtuLogo.png"
-                  alt="DTU Logo"
-                  className={`${styles.educationLogo} ${styles.dark}`}
-                />
+                <img src="/upcLogo.png" alt="UPC Logo" className={`${styles.educationLogo} ${styles.light}`} />
+                <img src="/upcLogo.png" alt="UPC Logo" className={`${styles.educationLogo} ${styles.dark}`} />
               </div>
-              <img
-                src="/DTU.jpg"
-                alt="Denmark's Technical University (DTU)"
-                className={styles.educationImage}
-              />
+              <img src="/upc.jpg" alt="UPC" className={styles.educationImage} />
               <p className={styles.educationText}>
-                <strong>Denmark&apos;s Technical University (DTU)</strong>
+                <strong>Polytechnical University of Catalonia (UPC)</strong>
                 <br />
-                MSc in Mathematical Modelling and Computation.
+                BSc in Telecommunications Technologies Engineering, graduated with Honors.
               </p>
             </div>
           </div>
@@ -190,11 +169,78 @@ export default function Home() {
             className={styles.arrowRightContainer}
             style={{ visibility: canScrollEduRight ? 'visible' : 'hidden', pointerEvents: canScrollEduRight ? 'auto' : 'none' }}
           >
-            <IoIosArrowForward className={styles.arrowRight} onClick={scrollEduRight} />
+            <IoIosArrowForward className={styles.arrowRight} onClick={() => scrollGrid(educationGridRef, 600)} />
           </div>
         </div>
 
-        {/* Arrow icon for scrolling to the Projects Section */}
+        {/* Arrow icon for scrolling to the Experience Section */}
+        <div className={styles.arrowContainer}>
+          <IoIosArrowDown className={styles.arrow} onClick={() => scrollToSection("experience")} />
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience" className={styles.projectsSection}>
+        <h2>Experience</h2>
+        <div className={styles.projectWrapper}>
+          <div 
+            className={styles.arrowLeftContainer} 
+            style={{ visibility: canScrollExpLeft ? 'visible' : 'hidden', pointerEvents: canScrollExpLeft ? 'auto' : 'none' }}
+          >
+            <IoIosArrowBack className={styles.arrowLeft} onClick={() => scrollGrid(experienceGridRef, -600)} />
+          </div>
+
+          <div className={styles.projectsGrid} ref={experienceGridRef}>
+            {/* ECB */}
+            <div className={styles.projectCard}>
+              <div className={styles.projectLogoContainer}>
+                <img src="/ecbLogo.png" alt="ECB Logo" className={`${styles.projectLogo} ${styles.light}`} />
+                <img src="/ecbLogo.png" alt="ECB Logo" className={`${styles.projectLogo} ${styles.dark}`} />
+              </div>
+              <img src="/ecbImage.jpeg" alt="ECB" className={styles.projectImage} />
+              <p className={styles.projectText}>
+                <strong>Technology and Innovation <br />at ECB</strong>
+                <br />
+                Working at the Technology and Innovation Division.
+              </p>
+            </div>
+
+            {/* CERN */}
+            <div className={styles.projectCard}>
+              <div className={styles.projectLogoContainer}>
+                <img src="/cern.png" alt="CERN Logo" className={`${styles.projectLogo} ${styles.light}`} />
+                <img src="/cern.png" alt="CERN Logo" className={`${styles.projectLogo} ${styles.dark}`} />
+              </div>
+              <img src="/cernImage.jpeg" alt="CERN" className={styles.projectImage} />
+              <p className={styles.projectText}>
+                <strong>CBI at CERN</strong>
+                <br />
+                European Union project called Challenge Based Innovation.
+              </p>
+            </div>
+
+            {/* Overlay */}
+            <div className={styles.projectCard}>
+              <div className={styles.projectLogoContainer}>
+                <img src="/overlay.png" alt="Overlay Logo" className={`${styles.projectLogo} ${styles.light}`} />
+                <img src="/overlay.png" alt="Overlay Logo" className={`${styles.projectLogo} ${styles.dark}`} />
+              </div>
+              <img src="/overlayImage.png" alt="Overlay" className={styles.projectImage} />
+              <p className={styles.projectText}>
+                <strong>Overlay</strong>
+                <br />
+                Early-stage start-up developing multi-agentic systems.
+              </p>
+            </div>
+          </div>
+
+          <div 
+            className={styles.arrowRightContainer}
+            style={{ visibility: canScrollExpRight ? 'visible' : 'hidden', pointerEvents: canScrollExpRight ? 'auto' : 'none' }}
+          >
+            <IoIosArrowForward className={styles.arrowRight} onClick={() => scrollGrid(experienceGridRef, 600)} />
+          </div>
+        </div>
         <div className={styles.arrowContainer}>
           <IoIosArrowDown className={styles.arrow} onClick={() => scrollToSection("projects")} />
         </div>
@@ -202,169 +248,59 @@ export default function Home() {
 
       {/* Projects Section */}
       <section id="projects" className={styles.projectsSection}>
-        <h2>Work & Projects</h2>
+        <h2>Projects</h2>
         <div className={styles.projectWrapper}>
-          
-          {/* Left Arrow for scrolling to the left */}
           <div 
             className={styles.arrowLeftContainer} 
-            style={{ visibility: canScrollLeft ? 'visible' : 'hidden', pointerEvents: canScrollLeft ? 'auto' : 'none' }}
+            style={{ visibility: canScrollProjLeft ? 'visible' : 'hidden', pointerEvents: canScrollProjLeft ? 'auto' : 'none' }}
           >
-            <IoIosArrowBack className={styles.arrowLeft} onClick={scrollLeft} />
+            <IoIosArrowBack className={styles.arrowLeft} onClick={() => scrollGrid(projectsGridRef, -600)} />
           </div>
 
           <div className={styles.projectsGrid} ref={projectsGridRef}>
-
-            {/* ECB Project */}
+            {/* SER */}
             <div className={styles.projectCard}>
               <div className={styles.projectLogoContainer}>
-                <img
-                  src="/ecbLogo.png"
-                  alt="ECB Logo"
-                  className={`${styles.projectLogo} ${styles.light}`}
-                />
-                <img
-                  src="/ecbLogo.png"
-                  alt="ECB Logo"
-                  className={`${styles.projectLogo} ${styles.dark}`}
-                />
+                <img src="/unswLogo.png" alt="SER Logo" className={`${styles.projectLogo} ${styles.light}`} />
+                <img src="/unswLogoWhite.png" alt="SER Logo" className={`${styles.projectLogo} ${styles.dark}`} />
               </div>
-              <img
-                src="/ecbImage.jpeg"
-                alt="ECB Image"
-                className={styles.projectImage}
-              />
-              <p className={styles.projectText}>
-                <strong>Technology and Innovation <br />at ECB</strong>
-                <br />
-                Working at the Technology and Innovation Division, click to discover more!
-              </p>
-            </div>
-
-            {/* Project 1 */}
-            <div className={styles.projectCard}>
-              <div className={styles.projectLogoContainer}>
-                <img
-                  src="/cern.png" // Placeholder logo
-                  alt="Cern Ideasquare Logo"
-                  className={`${styles.projectLogo} ${styles.light}`}
-                />
-                <img
-                  src="/cern.png" // Placeholder logo
-                  alt="Cern Ideasquare Logo"
-                  className={`${styles.projectLogo} ${styles.dark}`}
-                />
-              </div>
-              <img
-                src="/cernImage.jpeg" // Placeholder image
-                alt="Cern Image"
-                className={styles.projectImage}
-              />
-              <p className={styles.projectText}>
-                <strong>CBI at CERN</strong>
-                <br />
-                European Union project called Challenge Based Innovation (CBI) to find new ways to tackle systemic challenges.
-              </p>
-            </div>
-
-            {/* Project 2 */}
-            <div className={styles.projectCard}>
-              <div className={styles.projectLogoContainer}>
-                <img
-                  src="/overlay.png" // Placeholder logo
-                  alt="Overlay Logo light"
-                  className={`${styles.projectLogo} ${styles.light}`}
-                />
-                <img
-                  src="/overlay.png" // Placeholder logo
-                  alt="Overlay Logo Dark"
-                  className={`${styles.projectLogo} ${styles.dark}`}
-                />
-              </div>
-              <img
-                src="/overlayImage.png" // Placeholder image
-                alt="Overlay image"
-                className={styles.projectImage}
-              />
-              <p className={styles.projectText}>
-                <strong>Overlay</strong>
-                <br />
-                Early-stage start-up where we develop multi-agentic systems that integrate with our customers&apos; software.
-              </p>
-            </div>
-
-            {/* Project 3 */}
-            <div className={styles.projectCard}>
-              <div className={styles.projectLogoContainer}>
-                <img
-                  src="/unswLogo.png" // Placeholder logo
-                  alt="SER Project Logo"
-                  className={`${styles.projectLogo} ${styles.light}`}
-                />
-                <img
-                  src="/unswLogoWhite.png" // Placeholder logo
-                  alt="SER Project Logo"
-                  className={`${styles.projectLogo} ${styles.dark}`}
-                />
-              </div>
-              <img
-                src="/serImage.png" // Placeholder image
-                alt="Speech Emotion recognition"
-                className={styles.projectImage}
-              />
+              <img src="/serImage.png" alt="Speech Emotion recognition" className={styles.projectImage} />
               <p className={styles.projectText}>
                 <strong>Speech Emotion Recognition</strong>
                 <br />
-                Comparative analysis of methods for the adaptation of Speech Emotion Recognition (SER) systems
+                Comparative analysis of methods for SER systems adaptation.
               </p>
             </div>
 
-
-            {/* Project 5 */}
+            {/* Uniraid */}
             <div className={styles.projectCard}>
               <div className={styles.projectLogoContainer}>
-                <img
-                  src="/uniraid.png" // Placeholder logo
-                  alt="UniRaid black"
-                  className={`${styles.projectLogo} ${styles.light}`}
-                />
-                <img
-                  src="/uniraid.png" // Placeholder logo
-                  alt="Uniraid white"
-                  className={`${styles.projectLogo} ${styles.dark}`}
-                />
+                <img src="/uniraid.png" alt="UniRaid Logo" className={`${styles.projectLogo} ${styles.light}`} />
+                <img src="/uniraid.png" alt="UniRaid Logo" className={`${styles.projectLogo} ${styles.dark}`} />
               </div>
-              <img
-                src="/uniraidCoche.JPG" // Placeholder image
-                alt="UniRaid Image"
-                className={styles.projectImage}
-              />
+              <img src="/uniraidCoche.JPG" alt="UniRaid" className={styles.projectImage} />
               <p className={styles.projectText}>
                 <strong>Uniraid Volunteering</strong>
                 <br />
                 Volunteer in this humanitarian rally that takes place in Morocco.
-                Brought +100 kg of school supplies and other material.
               </p>
             </div>
-          </div> {/* End of projectsGrid */}
+          </div>
 
-          {/* Right Arrow for scrolling to the right */}
           <div 
             className={styles.arrowRightContainer}
-            style={{ visibility: canScrollRight ? 'visible' : 'hidden', pointerEvents: canScrollRight ? 'auto' : 'none' }}
+            style={{ visibility: canScrollProjRight ? 'visible' : 'hidden', pointerEvents: canScrollProjRight ? 'auto' : 'none' }}
           >
-            <IoIosArrowForward className={styles.arrowRight} onClick={scrollRight} />
+            <IoIosArrowForward className={styles.arrowRight} onClick={() => scrollGrid(projectsGridRef, 600)} />
           </div>
         </div>
-
-        {/* Arrow icon for scrolling to the next section */}
         <div className={styles.arrowContainer}>
           <IoIosArrowDown className={styles.arrow} onClick={() => scrollToSection("contact")} />
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className={styles.contactSection}>
+      <section id="contact" ref={contactRef} className={styles.contactSection}>
         <h2>Contact</h2>
         <div className={styles.contactInfo}>
           <div 
@@ -377,6 +313,19 @@ export default function Home() {
           <a href="mailto:dfeijoo2001@gmail.com" className={styles.contactEmail} >
             dfeijoo2001@gmail.com
           </a>
+
+          <div className={styles.contactSocials}>
+            <a href="/cv.pdf" download className={styles.contactCV}>
+              <AiOutlineCloudDownload className={styles.contactSocialIcon} />
+              <span>CV</span>
+            </a>
+            <a href="https://www.linkedin.com/in/david-feijoo-rodriguez" target="_blank" rel="noopener noreferrer" >
+              <FaLinkedin className={styles.contactSocialIcon} />
+            </a>
+            <a href="https://github.com/davidfeijoo" target="_blank" rel="noopener noreferrer" >
+              <FaGithub className={styles.contactSocialIcon} />
+            </a>
+          </div>
         </div>
       </section>
     </main>

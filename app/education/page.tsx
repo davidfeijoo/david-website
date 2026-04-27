@@ -54,16 +54,16 @@ export default function EducationPage() {
       <section className={`${styles.educationSection} !h-auto py-24`}>
         <h2>Education</h2>
         <div className={styles.educationGrid}>
-          {/* University 1: UPC */}
-          <a href="#upc" className={styles.educationCard}>
+          {/* University 1: DTU */}
+          <a href="#dtu" className={styles.educationCard}>
             <div className={styles.educationLogoContainer}>
-              <img src="/upcLogo.png" alt="UPC Logo" className={`${styles.educationLogo} ${styles.light}`} />
-              <img src="/upcLogo.png" alt="UPC Logo" className={`${styles.educationLogo} ${styles.dark}`} />
+              <img src="/dtuLogo.png" alt="DTU Logo" className={`${styles.educationLogo} ${styles.light}`} />
+              <img src="/dtuLogo.png" alt="DTU Logo" className={`${styles.educationLogo} ${styles.dark}`} />
             </div>
-            <img src="/upc.jpg" alt="UPC" className={styles.educationImage} />
+            <img src="/DTU.jpg" alt="DTU" className={styles.educationImage} />
             <p className={styles.educationText}>
-              <strong>Polytechnical University of Catalonia (UPC)</strong>
-              BSc in Telecommunications Technologies Engineering, graduated with Honors.
+              <strong>Denmark&apos;s Technical University (DTU)</strong>
+              MSc in Mathematical Modelling and Computation.
             </p>
           </a>
 
@@ -80,16 +80,16 @@ export default function EducationPage() {
             </p>
           </a>
 
-          {/* University 3: DTU */}
-          <a href="#dtu" className={styles.educationCard}>
+          {/* University 3: UPC */}
+          <a href="#upc" className={styles.educationCard}>
             <div className={styles.educationLogoContainer}>
-              <img src="/dtuLogo.png" alt="DTU Logo" className={`${styles.educationLogo} ${styles.light}`} />
-              <img src="/dtuLogo.png" alt="DTU Logo" className={`${styles.educationLogo} ${styles.dark}`} />
+              <img src="/upcLogo.png" alt="UPC Logo" className={`${styles.educationLogo} ${styles.light}`} />
+              <img src="/upcLogo.png" alt="UPC Logo" className={`${styles.educationLogo} ${styles.dark}`} />
             </div>
-            <img src="/DTU.jpg" alt="DTU" className={styles.educationImage} />
+            <img src="/upc.jpg" alt="UPC" className={styles.educationImage} />
             <p className={styles.educationText}>
-              <strong>Denmark&apos;s Technical University (DTU)</strong>
-              MSc in Mathematical Modelling and Computation.
+              <strong>Polytechnical University of Catalonia (UPC)</strong>
+              BSc in Telecommunications Technologies Engineering, graduated with Honors.
             </p>
           </a>
         </div>
