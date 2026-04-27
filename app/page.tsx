@@ -19,6 +19,9 @@ export default function Home() {
   const [canScrollProjRight, setCanScrollProjRight] = useState(true);
   const [canScrollEduLeft, setCanScrollEduLeft] = useState(false);
   const [canScrollEduRight, setCanScrollEduRight] = useState(true);
+  const [activeEduIndex, setActiveEduIndex] = useState(0);
+  const [activeExpIndex, setActiveExpIndex] = useState(0);
+  const [activeProjIndex, setActiveProjIndex] = useState(0);
   const [isProfileHovered, setIsProfileHovered] = useState(false);
 
   const { setIsContactActive } = useScroll();
@@ -37,8 +40,13 @@ export default function Home() {
     }
   };
 
-  // Update the visibility of arrows based on the scroll position
-  const handleScroll = (ref: React.RefObject<HTMLDivElement | null>, setLeft: (val: boolean) => void, setRight: (val: boolean) => void) => {
+  // Update the visibility of arrows and active card index based on the scroll position
+  const handleScroll = (
+    ref: React.RefObject<HTMLDivElement | null>, 
+    setLeft: (val: boolean) => void, 
+    setRight: (val: boolean) => void,
+    setActiveIndex: (val: number) => void
+  ) => {
     if (ref.current) {
       const scrollLeftPosition = ref.current.scrollLeft;
       const scrollWidth = ref.current.scrollWidth;
@@ -47,6 +55,11 @@ export default function Home() {
       // Arrows disappear when at start/end (with a small buffer)
       setLeft(scrollLeftPosition > 5);
       setRight(scrollLeftPosition < scrollWidth - clientWidth - 5);
+
+      // Determine active card index for mobile highlighting
+      const cardWidth = 220 + 32; // card width (220) + gap (2rem = 32px)
+      const index = Math.round(scrollLeftPosition / cardWidth);
+      setActiveIndex(index);
     }
   };
 
@@ -56,21 +69,21 @@ export default function Home() {
     const projRef = projectsGridRef.current;
     const eduRef = educationGridRef.current;
 
-    const onExpScroll = () => handleScroll(experienceGridRef, setCanScrollExpLeft, setCanScrollExpRight);
-    const onProjScroll = () => handleScroll(projectsGridRef, setCanScrollProjLeft, setCanScrollProjRight);
-    const onEduScroll = () => handleScroll(educationGridRef, setCanScrollEduLeft, setCanScrollEduRight);
+    const onExpScroll = () => handleScroll(experienceGridRef, setCanScrollExpLeft, setCanScrollExpRight, setActiveExpIndex);
+    const onProjScroll = () => handleScroll(projectsGridRef, setCanScrollProjLeft, setCanScrollProjRight, setActiveProjIndex);
+    const onEduScroll = () => handleScroll(educationGridRef, setCanScrollEduLeft, setCanScrollEduRight, setActiveEduIndex);
 
     if (expRef) {
       expRef.addEventListener("scroll", onExpScroll);
-      handleScroll(experienceGridRef, setCanScrollExpLeft, setCanScrollExpRight);
+      handleScroll(experienceGridRef, setCanScrollExpLeft, setCanScrollExpRight, setActiveExpIndex);
     }
     if (projRef) {
       projRef.addEventListener("scroll", onProjScroll);
-      handleScroll(projectsGridRef, setCanScrollProjLeft, setCanScrollProjRight);
+      handleScroll(projectsGridRef, setCanScrollProjLeft, setCanScrollProjRight, setActiveProjIndex);
     }
     if (eduRef) {
       eduRef.addEventListener("scroll", onEduScroll);
-      handleScroll(educationGridRef, setCanScrollEduLeft, setCanScrollEduRight);
+      handleScroll(educationGridRef, setCanScrollEduLeft, setCanScrollEduRight, setActiveEduIndex);
     }
 
     // IntersectionObserver for contact section
@@ -122,7 +135,7 @@ export default function Home() {
 
           <div className={styles.educationGrid} ref={educationGridRef}>
             {/* University 1: DTU */}
-            <div className={styles.educationCard}>
+            <div className={`${styles.educationCard} ${activeEduIndex === 0 ? styles.activeCard : ''}`}>
               <div className={styles.educationLogoContainer}>
                 <img src="/dtuLogo.png" alt="DTU Logo" className={`${styles.educationLogo} ${styles.light}`} />
                 <img src="/dtuLogo.png" alt="DTU Logo" className={`${styles.educationLogo} ${styles.dark}`} />
@@ -136,7 +149,7 @@ export default function Home() {
             </div>
 
             {/* University 2: UNSW */}
-            <div className={styles.educationCard}>
+            <div className={`${styles.educationCard} ${activeEduIndex === 1 ? styles.activeCard : ''}`}>
               <div className={styles.educationLogoContainer}>
                 <img src="/unswLogo.png" alt="UNSW Logo" className={`${styles.educationLogo} ${styles.light}`} />
                 <img src="/unswLogoWhite.png" alt="UNSW Logo" className={`${styles.educationLogo} ${styles.dark}`} />
@@ -150,7 +163,7 @@ export default function Home() {
             </div>
 
             {/* University 3: UPC */}
-            <div className={styles.educationCard}>
+            <div className={`${styles.educationCard} ${activeEduIndex === 2 ? styles.activeCard : ''}`}>
               <div className={styles.educationLogoContainer}>
                 <img src="/upcLogo.png" alt="UPC Logo" className={`${styles.educationLogo} ${styles.light}`} />
                 <img src="/upcLogo.png" alt="UPC Logo" className={`${styles.educationLogo} ${styles.dark}`} />
@@ -192,7 +205,7 @@ export default function Home() {
 
           <div className={styles.projectsGrid} ref={experienceGridRef}>
             {/* ECB */}
-            <div className={styles.projectCard}>
+            <div className={`${styles.projectCard} ${activeExpIndex === 0 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/ecbLogo.png" alt="ECB Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/ecbLogo.png" alt="ECB Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -206,7 +219,7 @@ export default function Home() {
             </div>
 
             {/* CERN */}
-            <div className={styles.projectCard}>
+            <div className={`${styles.projectCard} ${activeExpIndex === 1 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/cern.png" alt="CERN Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/cern.png" alt="CERN Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -220,7 +233,7 @@ export default function Home() {
             </div>
 
             {/* Overlay */}
-            <div className={styles.projectCard}>
+            <div className={`${styles.projectCard} ${activeExpIndex === 2 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/overlay.png" alt="Overlay Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/overlay.png" alt="Overlay Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -259,7 +272,7 @@ export default function Home() {
 
           <div className={styles.projectsGrid} ref={projectsGridRef}>
             {/* SER */}
-            <div className={styles.projectCard}>
+            <div className={`${styles.projectCard} ${activeProjIndex === 0 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/unswLogo.png" alt="SER Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/unswLogoWhite.png" alt="SER Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -273,7 +286,7 @@ export default function Home() {
             </div>
 
             {/* Uniraid */}
-            <div className={styles.projectCard}>
+            <div className={`${styles.projectCard} ${activeProjIndex === 1 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/uniraid.png" alt="UniRaid Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/uniraid.png" alt="UniRaid Logo" className={`${styles.projectLogo} ${styles.dark}`} />

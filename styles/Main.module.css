@@ -15,8 +15,8 @@
   .hero h1 { font-size: 3rem; }
   .hero h3 { font-size: 1.5rem; }
 
-  .arrowContainer { bottom: 5px; }
-  .educationSection, .projectsSection { padding-bottom: 60px; }
+  .arrowContainer { bottom: 40px; z-index: 10; }
+  .educationSection, .projectsSection { padding: 40px 0; }
 }
 
 .hero h1 {
@@ -123,7 +123,7 @@
   }
 }
 
-.educationCard:hover {
+.educationCard:hover, .educationCard.activeCard {
   background-color: var(--soft-background);
   transform: scale(1.05);
 }
@@ -373,7 +373,7 @@
 
 /* Projects Section */
 .projectsSection {
-  height: 100vh; /* Full height of the viewport */
+  min-height: 100vh; /* Changed from height to min-height */
   display: flex; /* Flexbox for alignment */
   flex-direction: column; /* Stack items vertically */
   justify-content: center; /* Center items vertically */
@@ -476,7 +476,7 @@
   scroll-snap-align: center; /* Snap card to center */
 }
 
-.projectCard:hover {
+.projectCard:hover, .projectCard.activeCard {
   background-color: var(--soft-background); /* Change background on hover */
   transform: scale(1.05); /* Slightly grow the card */
 }
@@ -684,7 +684,8 @@
 
   .hero .arrowContainer {
     display: flex;
-    bottom: 5px;
+    bottom: 40px;
+    z-index: 10;
   }
 
   .educationSection h2, .projectsSection h2, .contactSection h2 { font-size: 1.8rem; }
@@ -703,9 +704,9 @@
   }
 
   /* Fit education section within mobile viewport (fixed nav is 80px) */
-  .educationSection { 
-    min-height: calc(100vh - 80px); 
-    padding-bottom: 0; 
+  .educationSection, .projectsSection { 
+    min-height: auto; 
+    padding: 60px 0;
     scroll-snap-align: start;
     scroll-margin-top: 80px;
   }
