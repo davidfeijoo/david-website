@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { IoIosArrowDown, IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import styles from '@/styles/Main.module.css';
 
-export default function ProjectsPage() {
+export default function WorkPage() {
   const projectsGridRef = useRef<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -51,8 +51,8 @@ export default function ProjectsPage() {
   
   return (
     <main className="min-h-screen bg-[var(--background-color)]">
-      <section id="projects" className={`${styles.projectsSection} min-h-screen flex flex-col justify-center pt-32 pb-24 md:py-24`}>
-        <h2 className="text-4xl md:text-6xl font-light mb-12">PROJECTS</h2>
+      <section id="work" className={`${styles.projectsSection} min-h-screen flex flex-col justify-center pt-32 pb-24 md:py-24`}>
+        <h2 className="text-4xl md:text-6xl font-light mb-12">WORK EXPERIENCE</h2>
         <div className={styles.projectWrapper}>
           
           <div 
@@ -68,31 +68,45 @@ export default function ProjectsPage() {
           </div>
 
           <div className={styles.projectsGrid} ref={projectsGridRef}>
-            {/* SER */}
+            {/* ECB */}
             <div className={styles.projectCard}>
               <div className={styles.projectLogoContainer}>
-                <img src="/unswLogo.png" alt="SER Logo" className={`${styles.projectLogo} ${styles.light}`} />
-                <img src="/unswLogoWhite.png" alt="SER Logo" className={`${styles.projectLogo} ${styles.dark}`} />
+                <img src="/ecbLogo.png" alt="ECB Logo" className={`${styles.projectLogo} ${styles.light}`} />
+                <img src="/ecbLogo.png" alt="ECB Logo" className={`${styles.projectLogo} ${styles.dark}`} />
               </div>
-              <img src="/serImage.png" alt="Speech Emotion recognition" className={styles.projectImage} />
+              <img src="/ecbImage.jpeg" alt="ECB" className={styles.projectImage} />
               <p className={styles.projectText}>
-                <strong>Speech Emotion Recognition</strong>
+                <strong>Technology and Innovation at ECB</strong>
                 <br />
-                Comparative analysis of methods for SER systems adaptation.
+                Working at the Technology and Innovation Division.
               </p>
             </div>
 
-            {/* Uniraid */}
+            {/* CERN */}
             <div className={styles.projectCard}>
               <div className={styles.projectLogoContainer}>
-                <img src="/uniraid.png" alt="UniRaid Logo" className={`${styles.projectLogo} ${styles.light}`} />
-                <img src="/uniraid.png" alt="UniRaid Logo" className={`${styles.projectLogo} ${styles.dark}`} />
+                <img src="/cern.png" alt="CERN Logo" className={`${styles.projectLogo} ${styles.light}`} />
+                <img src="/cern.png" alt="CERN Logo" className={`${styles.projectLogo} ${styles.dark}`} />
               </div>
-              <img src="/uniraidCoche.JPG" alt="UniRaid" className={styles.projectImage} />
+              <img src="/cernImage.jpeg" alt="CERN" className={styles.projectImage} />
               <p className={styles.projectText}>
-                <strong>Uniraid Volunteering</strong>
+                <strong>CBI at CERN</strong>
                 <br />
-                Volunteer in this humanitarian rally that takes place in Morocco.
+                European Union project called Challenge Based Innovation.
+              </p>
+            </div>
+
+            {/* Overlay */}
+            <div className={styles.projectCard}>
+              <div className={styles.projectLogoContainer}>
+                <img src="/overlay.png" alt="Overlay Logo" className={`${styles.projectLogo} ${styles.light}`} />
+                <img src="/overlay.png" alt="Overlay Logo" className={`${styles.projectLogo} ${styles.dark}`} />
+              </div>
+              <img src="/overlayImage.png" alt="Overlay" className={styles.projectImage} />
+              <p className={styles.projectText}>
+                <strong>Overlay</strong>
+                <br />
+                Early-stage start-up developing multi-agentic systems.
               </p>
             </div>
           </div>

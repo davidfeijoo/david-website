@@ -1,6 +1,6 @@
 .nav {
     position: fixed;
-    z-index: 1010; /* Ensure the header is on top of other content */
+    z-index: 2010; /* Ensure the header is on top of other content */
     top: 0;
     left: 0;
     right: 0;
@@ -43,7 +43,7 @@
 .navList {
     list-style: none;
     display: flex;
-    gap: 3rem;  /* Equivalent to space-x-6 in Tailwind */
+    gap: 2rem;  /* Reduced from 3rem to fit all items */
     margin: 0;
     padding: 0;
     align-items: center;
@@ -98,6 +98,9 @@
 }
 
 @media (max-width: 768px) {
+    .nav {
+        background-color: var(--soft-background);
+    }
     .hideMobile {
         display: none !important;
     }

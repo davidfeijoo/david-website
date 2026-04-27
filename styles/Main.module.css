@@ -678,6 +678,15 @@
     scroll-snap-align: start;
   }
 
+  .arrowContainer {
+    display: none;
+  }
+
+  .hero .arrowContainer {
+    display: flex;
+    bottom: 5px;
+  }
+
   .educationSection h2, .projectsSection h2, .contactSection h2 { font-size: 1.8rem; }
   .contactEmail { font-size: 1.2rem; margin-bottom: 1.5rem; }
 
@@ -700,8 +709,8 @@
     scroll-snap-align: start;
     scroll-margin-top: 80px;
   }
-  .educationCard { width: 220px; padding: 0.75rem; }
-  .educationGrid {
+  .educationCard, .projectCard { width: 220px; padding: 0.75rem; }
+  .educationGrid, .projectsGrid {
     max-width: 100%;
     margin-top: 0.5rem;
     padding: 0.75rem 0;
@@ -722,7 +731,7 @@
     padding: 2rem 1rem;
     gap: 1rem;
     justify-content: center;
-    scroll-snap-align: start;
+    /* scroll-snap-align: start; */
     scroll-margin-top: 80px;
     border-radius: 0;
   }
@@ -747,17 +756,6 @@
     width: 100%;
   }
 
-  .projectsGrid {
-    width: 100%;
-    max-width: 100%;
-    padding: 0.75rem 0;
-    padding-left: calc(50% - 150px);
-    padding-right: calc(50% - 150px);
-    scroll-snap-type: x mandatory;
-    scroll-padding-left: calc(50% - 150px);
-    scroll-padding-right: calc(50% - 150px);
-  }
-
   .projectsSection {
     scroll-snap-align: start;
     scroll-margin-top: 80px;
@@ -768,7 +766,8 @@
     scroll-margin-top: 80px;
   }
 
-  .educationLogoContainer { height: 60px; margin-bottom: 0.5rem; }
-  .educationImage { height: 180px; width: 150px; margin-bottom: 0.5rem; }
+  .educationLogoContainer, .projectLogoContainer { height: 60px; width: 150px; margin-bottom: 0.5rem; }
+  .educationImage, .projectImage { height: 180px; width: 150px; margin-bottom: 0.5rem; }
+  .projectText { font-size: 0.85rem; margin: 0.5rem; }
   .arrowLeftContainer, .arrowRightContainer { display: none; }
 }

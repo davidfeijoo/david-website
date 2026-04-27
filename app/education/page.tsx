@@ -51,7 +51,7 @@ export default function EducationPage() {
     <main className="min-h-screen bg-[var(--background-color)] pb-24">
       
       {/* 1. Overview Section with Vertical Cards (Home Style) */}
-      <section className={`${styles.educationSection} !h-auto py-24`}>
+      <section className={`${styles.educationSection} !h-auto pt-32 pb-24 md:py-24`}>
         <h2>Education</h2>
         <div className={styles.educationGrid}>
           {/* University 1: DTU */}

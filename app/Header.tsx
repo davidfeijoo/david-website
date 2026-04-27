@@ -51,8 +51,13 @@ export default function Header() {
             </Link>
           </li>
           <li className={styles.hideMobile}>
+            <Link href="/work" className={styles.navLink}>
+              WORK
+            </Link>
+          </li>
+          <li className={styles.hideMobile}>
             <Link href="/projects" className={styles.navLink}>
-              WORK & PROJECTS
+              PROJECTS
             </Link>
           </li>
           <li className={styles.hideMobile}>
@@ -86,8 +91,13 @@ export default function Header() {
             </Link>
           </li>
           <li className={styles.hideMobile}>
+            <Link href="/work" className={styles.navLink}>
+              WORK
+            </Link>
+          </li>
+          <li className={styles.hideMobile}>
             <Link href="/projects" className={styles.navLink}>
-              WORK & PROJECTS
+              PROJECTS
             </Link>
           </li>
           <li className={styles.hideMobile}>

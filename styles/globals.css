@@ -49,7 +49,7 @@ html {
 
 @media (max-width: 768px) {
   html {
-    scroll-snap-type: y proximity;
+    /* scroll-snap-type: y proximity; */ /* Removed to allow free scrolling */
   }
 }
 
