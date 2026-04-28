@@ -733,7 +733,7 @@
     z-index: 10;
   }
 
-  .educationSection h2, .projectsSection h2, .contactSection h2 { font-size: 1.8rem; }
+  .educationSection h2, .projectsSection h2, .contactSection h2 { font-size: 1.8rem; margin: 0; }
   .contactEmail { font-size: 1.2rem; margin-bottom: 1.5rem; }
 
   .contactSocials {
@@ -750,13 +750,13 @@
 
   /* Fit education section within mobile viewport (fixed nav is 80px) */
   .educationSection, .projectsSection { 
-    min-height: 100vh; 
-    padding: 10svh 0 60px 0;
+    min-height: auto; 
+    padding: 10px 0 20px 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     scroll-snap-align: start;
-    scroll-margin-top: 80px;
+    scroll-margin-top: 70px;
   }
   .educationCard, .projectCard { width: 220px; padding: 0.75rem; }
   .educationCard.activeCard, .projectCard.activeCard {
@@ -817,7 +817,8 @@
 
   .contactSection {
     scroll-snap-align: start;
-    scroll-margin-top: 80px;
+    scroll-margin-top: 70px;
+    padding: 20px 0;
   }
 
   .educationLogoContainer, .projectLogoContainer { height: 60px; width: 150px; margin-bottom: 0.5rem; }
