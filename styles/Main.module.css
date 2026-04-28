@@ -6,17 +6,10 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  min-height: 100svh;
   background-color: var(--background-color);
   text-align: center;
   padding: 0;
-}
-
-@media (max-width: 768px) {
-  .hero h1 { font-size: 3rem; }
-  .hero h3 { font-size: 1.5rem; }
-
-  .arrowContainer { bottom: 40px; z-index: 10; }
-  .educationSection, .projectsSection { padding: 40px 0; }
 }
 
 .hero h1 {
@@ -723,6 +716,9 @@
 }
 
 @media (max-width: 768px) {
+  .hero h1 { font-size: 3rem; }
+  .hero h3 { font-size: 1.5rem; }
+
   .hero {
     scroll-snap-align: start;
   }
@@ -733,7 +729,7 @@
 
   .hero .arrowContainer {
     display: flex;
-    bottom: 40px;
+    bottom: 80px;
     z-index: 10;
   }
 
@@ -755,12 +751,12 @@
   /* Fit education section within mobile viewport (fixed nav is 80px) */
   .educationSection, .projectsSection { 
     min-height: 100vh; 
-    padding: 25svh 0 60px 0;
+    padding: 10svh 0 60px 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     scroll-snap-align: start;
-    scroll-margin-top: 0;
+    scroll-margin-top: 80px;
   }
   .educationCard, .projectCard { width: 220px; padding: 0.75rem; }
   .educationCard.activeCard, .projectCard.activeCard {
@@ -776,7 +772,7 @@
     scroll-snap-type: x mandatory;
     scroll-padding-left: calc(50% - 110px);
     scroll-padding-right: calc(50% - 110px);
-    touch-action: pan-y; /* Allow vertical page scroll even when swiping over the grid */
+    touch-action: pan-x pan-y; /* Allow both horizontal and vertical swiping */
   }
 
   .educationDetailsContainer {
