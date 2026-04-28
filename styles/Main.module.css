@@ -55,7 +55,7 @@
   text-align: center;
   background-color: var(--background-color);
   position: relative;
-  scroll-margin-top: 5px;
+  scroll-margin-top: 80px;
 }
 
 .educationSection h2 {
@@ -94,8 +94,9 @@
 
 @media (min-width: 1024px) {
   .educationGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem; /* Increased separation as requested */
     max-width: 1200px;
     justify-content: center;
     overflow-x: visible;
@@ -113,7 +114,7 @@
   text-decoration: none; /* Remove link underlining */
   color: inherit; /* Keep text color */
   flex-shrink: 0;
-  width: 300px;
+  width: 320px; /* Slightly wider for better desktop spacing */
   scroll-snap-align: center;
 }
 
@@ -123,7 +124,7 @@
   }
 }
 
-.educationCard:hover, .educationCard.activeCard {
+.educationCard:hover {
   background-color: var(--soft-background);
   transform: scale(1.05);
 }
@@ -180,6 +181,33 @@
   margin-bottom: 0.5rem;
 }
 
+/* DTU 2-column layout */
+.dtuTwoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+@media (max-width: 768px) {
+  .dtuTwoCol {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tech Skills 3-column grid */
+.techSkillsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .techSkillsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Detailed Horizontal Blocks (For Education Page Details) */
 .educationDetailsContainer {
   display: flex;
@@ -201,6 +229,7 @@
   border-radius: 30px;
   background-color: transparent;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  scroll-margin-top: 100px;
 }
 
 .educationDetailsBlock:nth-child(even) {
@@ -381,7 +410,7 @@
   text-align: center; /* Center text */
   background-color: var(--background-color);
   position: relative; /* For positioning the arrow */
-  scroll-margin-top: 8px; /* Adjust for fixed nav */
+  scroll-margin-top: 80px; /* Adjust for fixed nav */
 }
 
 
@@ -410,8 +439,19 @@
   gap: 2rem; /* Space between projects */
   max-width: 75vw; /* Limit the width of the grid */
   justify-items: center; /* Center grid items */
-  padding: 1.5rem;  /* Add padding to the grid */
+  padding: 0.75rem 1.5rem;  /* Match educationGrid padding */
   scroll-snap-type: x mandatory; /* Enable scroll snapping */
+}
+
+@media (min-width: 1024px) {
+  .projectsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem; /* Match educationGrid separation */
+    max-width: 1200px;
+    justify-content: center;
+    overflow-x: visible;
+  }
 }
 
 .projectsGrid::-webkit-scrollbar {
@@ -469,27 +509,28 @@
   flex-direction: column;
   align-items: center;
   flex-shrink: 0; /* Prevents shrinking of project cards */
-  width: 300px; /* Set a fixed width for each project */
+  width: 320px; /* Match educationCard width */
   transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth background color and scaling transition */
   cursor: pointer;
-  border-radius: 10px;
+  padding: 1.5rem; /* Match educationCard padding */
+  border-radius: 20px; /* Match educationCard border-radius */
   scroll-snap-align: center; /* Snap card to center */
 }
 
-.projectCard:hover, .projectCard.activeCard {
+.projectCard:hover {
   background-color: var(--soft-background); /* Change background on hover */
   transform: scale(1.05); /* Slightly grow the card */
 }
 
 .projectLogoContainer {
-  width: 200px; /* Fixed width for logos */
-  height: 100px; /* Fixed height for logos */
+  width: 150px; /* Match educationLogoContainer */
+  height: 80px;  /* Match educationLogoContainer */
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10%;
   overflow: hidden;
-  margin: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .projectLogo {
@@ -515,17 +556,25 @@
 
 /* Project Images */
 .projectImage {
-  width: 200px; /* Fixed width */
-  height: 300px; /* Fixed height */
+  width: 180px; /* Match educationImage */
+  height: 250px; /* Match educationImage */
   border-radius: 10px;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
 }
 
 .projectText {
-  margin: 1rem;
-  font-size: 1rem;
+  font-size: 0.95rem; /* Match educationText */
+  line-height: 1.4;
   color: var(--primary-color);
+  max-width: 250px;
+}
+
+.projectText strong {
+  display: block;
+  font-size: 1.1rem; /* Match educationText strong */
+  margin-bottom: 0.5rem;
 }
 
 /* Contact Section */
@@ -705,12 +754,19 @@
 
   /* Fit education section within mobile viewport (fixed nav is 80px) */
   .educationSection, .projectsSection { 
-    min-height: auto; 
-    padding: 60px 0;
+    min-height: 100vh; 
+    padding: 25svh 0 60px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     scroll-snap-align: start;
-    scroll-margin-top: 80px;
+    scroll-margin-top: 0;
   }
   .educationCard, .projectCard { width: 220px; padding: 0.75rem; }
+  .educationCard.activeCard, .projectCard.activeCard {
+    background-color: var(--soft-background);
+    transform: scale(1.05);
+  }
   .educationGrid, .projectsGrid {
     max-width: 100%;
     margin-top: 0.5rem;
@@ -720,6 +776,7 @@
     scroll-snap-type: x mandatory;
     scroll-padding-left: calc(50% - 110px);
     scroll-padding-right: calc(50% - 110px);
+    touch-action: pan-y; /* Allow vertical page scroll even when swiping over the grid */
   }
 
   .educationDetailsContainer {

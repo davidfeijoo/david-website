@@ -19,9 +19,10 @@ export default function Home() {
   const [canScrollProjRight, setCanScrollProjRight] = useState(true);
   const [canScrollEduLeft, setCanScrollEduLeft] = useState(false);
   const [canScrollEduRight, setCanScrollEduRight] = useState(true);
-  const [activeEduIndex, setActiveEduIndex] = useState(0);
-  const [activeExpIndex, setActiveExpIndex] = useState(0);
-  const [activeProjIndex, setActiveProjIndex] = useState(0);
+  const [activeEduIndex, setActiveEduIndex] = useState(-1);
+  const [activeExpIndex, setActiveExpIndex] = useState(-1);
+  const [activeProjIndex, setActiveProjIndex] = useState(-1);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const [isProfileHovered, setIsProfileHovered] = useState(false);
 
   const { setIsContactActive } = useScroll();
@@ -48,18 +49,36 @@ export default function Home() {
     setActiveIndex: (val: number) => void
   ) => {
     if (ref.current) {
-      const scrollLeftPosition = ref.current.scrollLeft;
-      const scrollWidth = ref.current.scrollWidth;
-      const clientWidth = ref.current.clientWidth;
+      const container = ref.current;
+      const scrollLeftPosition = container.scrollLeft;
+      const scrollWidth = container.scrollWidth;
+      const clientWidth = container.clientWidth;
 
       // Arrows disappear when at start/end (with a small buffer)
       setLeft(scrollLeftPosition > 5);
       setRight(scrollLeftPosition < scrollWidth - clientWidth - 5);
 
-      // Determine active card index for mobile highlighting
-      const cardWidth = 220 + 32; // card width (220) + gap (2rem = 32px)
-      const index = Math.round(scrollLeftPosition / cardWidth);
-      setActiveIndex(index);
+      // Determine active card index for mobile highlighting (only if screen is narrow)
+      if (window.innerWidth <= 768) {
+        const containerCenter = scrollLeftPosition + clientWidth / 2;
+        const cards = Array.from(container.children) as HTMLElement[];
+        
+        let closestIndex = 0;
+        let minDistance = Infinity;
+
+        cards.forEach((card, index) => {
+          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+          const distance = Math.abs(containerCenter - cardCenter);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestIndex = index;
+          }
+        });
+
+        setActiveIndex(closestIndex);
+      } else {
+        setActiveIndex(-1); // Disable highlighting on desktop
+      }
     }
   };
 
@@ -98,11 +117,33 @@ export default function Home() {
       observer.observe(contactRef.current);
     }
 
+    // Observer to track which section is active for card highlighting
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const sectionIds = ["first-section", "experience", "projects"];
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) sectionObserver.observe(el);
+    });
+
     return () => {
       if (expRef) expRef.removeEventListener("scroll", onExpScroll);
       if (projRef) projRef.removeEventListener("scroll", onProjScroll);
       if (eduRef) eduRef.removeEventListener("scroll", onEduScroll);
       if (contactRef.current) observer.unobserve(contactRef.current);
+      sectionIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) sectionObserver.unobserve(el);
+      });
     };
   }, [setIsContactActive]);
 
@@ -135,7 +176,7 @@ export default function Home() {
 
           <div className={styles.educationGrid} ref={educationGridRef}>
             {/* University 1: DTU */}
-            <div className={`${styles.educationCard} ${activeEduIndex === 0 ? styles.activeCard : ''}`}>
+            <div className={`${styles.educationCard} ${activeSection === "first-section" && activeEduIndex === 0 ? styles.activeCard : ''}`}>
               <div className={styles.educationLogoContainer}>
                 <img src="/dtuLogo.png" alt="DTU Logo" className={`${styles.educationLogo} ${styles.light}`} />
                 <img src="/dtuLogo.png" alt="DTU Logo" className={`${styles.educationLogo} ${styles.dark}`} />
@@ -149,7 +190,7 @@ export default function Home() {
             </div>
 
             {/* University 2: UNSW */}
-            <div className={`${styles.educationCard} ${activeEduIndex === 1 ? styles.activeCard : ''}`}>
+            <div className={`${styles.educationCard} ${activeSection === "first-section" && activeEduIndex === 1 ? styles.activeCard : ''}`}>
               <div className={styles.educationLogoContainer}>
                 <img src="/unswLogo.png" alt="UNSW Logo" className={`${styles.educationLogo} ${styles.light}`} />
                 <img src="/unswLogoWhite.png" alt="UNSW Logo" className={`${styles.educationLogo} ${styles.dark}`} />
@@ -163,7 +204,7 @@ export default function Home() {
             </div>
 
             {/* University 3: UPC */}
-            <div className={`${styles.educationCard} ${activeEduIndex === 2 ? styles.activeCard : ''}`}>
+            <div className={`${styles.educationCard} ${activeSection === "first-section" && activeEduIndex === 2 ? styles.activeCard : ''}`}>
               <div className={styles.educationLogoContainer}>
                 <img src="/upcLogo.png" alt="UPC Logo" className={`${styles.educationLogo} ${styles.light}`} />
                 <img src="/upcLogo.png" alt="UPC Logo" className={`${styles.educationLogo} ${styles.dark}`} />
@@ -171,8 +212,7 @@ export default function Home() {
               <img src="/upc.jpg" alt="UPC" className={styles.educationImage} />
               <p className={styles.educationText}>
                 <strong>Polytechnical University of Catalonia (UPC)</strong>
-                <br />
-                BSc in Telecommunications Technologies Engineering, graduated with Honors.
+                BSc in Telecom Technologies Engineering
               </p>
             </div>
           </div>
@@ -205,7 +245,7 @@ export default function Home() {
 
           <div className={styles.projectsGrid} ref={experienceGridRef}>
             {/* ECB */}
-            <div className={`${styles.projectCard} ${activeExpIndex === 0 ? styles.activeCard : ''}`}>
+            <div className={`${styles.projectCard} ${activeSection === "experience" && activeExpIndex === 0 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/ecbLogo.png" alt="ECB Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/ecbLogo.png" alt="ECB Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -219,7 +259,7 @@ export default function Home() {
             </div>
 
             {/* CERN */}
-            <div className={`${styles.projectCard} ${activeExpIndex === 1 ? styles.activeCard : ''}`}>
+            <div className={`${styles.projectCard} ${activeSection === "experience" && activeExpIndex === 1 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/cern.png" alt="CERN Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/cern.png" alt="CERN Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -233,7 +273,7 @@ export default function Home() {
             </div>
 
             {/* Overlay */}
-            <div className={`${styles.projectCard} ${activeExpIndex === 2 ? styles.activeCard : ''}`}>
+            <div className={`${styles.projectCard} ${activeSection === "experience" && activeExpIndex === 2 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/overlay.png" alt="Overlay Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/overlay.png" alt="Overlay Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -272,7 +312,7 @@ export default function Home() {
 
           <div className={styles.projectsGrid} ref={projectsGridRef}>
             {/* SER */}
-            <div className={`${styles.projectCard} ${activeProjIndex === 0 ? styles.activeCard : ''}`}>
+            <div className={`${styles.projectCard} ${activeSection === "projects" && activeProjIndex === 0 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/unswLogo.png" alt="SER Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/unswLogoWhite.png" alt="SER Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -286,7 +326,7 @@ export default function Home() {
             </div>
 
             {/* Uniraid */}
-            <div className={`${styles.projectCard} ${activeProjIndex === 1 ? styles.activeCard : ''}`}>
+            <div className={`${styles.projectCard} ${activeSection === "projects" && activeProjIndex === 1 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/uniraid.png" alt="UniRaid Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/uniraid.png" alt="UniRaid Logo" className={`${styles.projectLogo} ${styles.dark}`} />

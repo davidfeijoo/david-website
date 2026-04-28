@@ -7,6 +7,7 @@ export default function WorkPage() {
   const projectsGridRef = useRef<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeCardIndex, setActiveCardIndex] = useState(-1);
 
   const scrollToSection = (sectionId: string) => {
     const nextSection = document.getElementById(sectionId);
@@ -29,12 +30,35 @@ export default function WorkPage() {
 
   const handleScroll = () => {
     if (projectsGridRef.current) {
-      const scrollLeftPosition = projectsGridRef.current.scrollLeft;
-      const scrollWidth = projectsGridRef.current.scrollWidth;
-      const clientWidth = projectsGridRef.current.clientWidth;
+      const container = projectsGridRef.current;
+      const scrollLeftPosition = container.scrollLeft;
+      const scrollWidth = container.scrollWidth;
+      const clientWidth = container.clientWidth;
 
       setCanScrollLeft(scrollLeftPosition > 5);
       setCanScrollRight(scrollLeftPosition < scrollWidth - clientWidth - 5);
+
+      // Highlight logic for mobile
+      if (window.innerWidth <= 768) {
+        const containerCenter = scrollLeftPosition + clientWidth / 2;
+        const cards = Array.from(container.children) as HTMLElement[];
+        
+        let closestIndex = 0;
+        let minDistance = Infinity;
+
+        cards.forEach((card, index) => {
+          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+          const distance = Math.abs(containerCenter - cardCenter);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestIndex = index;
+          }
+        });
+
+        setActiveCardIndex(closestIndex);
+      } else {
+        setActiveCardIndex(-1);
+      }
     }
   };
 
@@ -51,8 +75,7 @@ export default function WorkPage() {
   
   return (
     <main className="min-h-screen bg-[var(--background-color)]">
-      <section id="work" className={`${styles.projectsSection} min-h-screen flex flex-col justify-center pt-32 pb-24 md:py-24`}>
-        <h2 className="text-4xl md:text-6xl font-light mb-12">WORK EXPERIENCE</h2>
+      <section id="work" className={styles.projectsSection}>
         <div className={styles.projectWrapper}>
           
           <div 
@@ -69,7 +92,7 @@ export default function WorkPage() {
 
           <div className={styles.projectsGrid} ref={projectsGridRef}>
             {/* ECB */}
-            <div className={styles.projectCard}>
+            <div className={`${styles.projectCard} ${activeCardIndex === 0 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/ecbLogo.png" alt="ECB Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/ecbLogo.png" alt="ECB Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -83,7 +106,7 @@ export default function WorkPage() {
             </div>
 
             {/* CERN */}
-            <div className={styles.projectCard}>
+            <div className={`${styles.projectCard} ${activeCardIndex === 1 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/cern.png" alt="CERN Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/cern.png" alt="CERN Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -97,7 +120,7 @@ export default function WorkPage() {
             </div>
 
             {/* Overlay */}
-            <div className={styles.projectCard}>
+            <div className={`${styles.projectCard} ${activeCardIndex === 2 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/overlay.png" alt="Overlay Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/overlay.png" alt="Overlay Logo" className={`${styles.projectLogo} ${styles.dark}`} />
