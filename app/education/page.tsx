@@ -14,7 +14,38 @@ import {
 import { MdSettingsInputAntenna, MdFiberSmartRecord } from 'react-icons/md';
 
 // Data Definition
-const educations = [
+interface EducationSkill {
+  name: string;
+  icon: React.ReactNode;
+}
+
+interface EducationKeyArea {
+  title: string;
+  desc: string;
+  skills?: string[] | EducationSkill[];
+}
+
+interface EducationDetails {
+  degree?: string;
+  focus?: string;
+  keyAreas?: string;
+  skills?: string;
+}
+
+interface Education {
+  id: string;
+  institution: string;
+  degree: string;
+  date: string;
+  logo: string;
+  placeholderImg: string;
+  focus: string;
+  skills?: EducationSkill[];
+  keyAreas?: EducationKeyArea[];
+  details?: EducationDetails;
+}
+
+const educations: Education[] = [
   {
     id: 'dtu',
     institution: 'Technical University of Denmark (DTU)',

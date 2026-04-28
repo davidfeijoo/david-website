@@ -55,7 +55,7 @@
   text-align: center;
   background-color: var(--background-color);
   position: relative;
-  scroll-margin-top: 80px;
+  scroll-margin-top: 7px; /* For adjusting where it lands after clicking on the down-point arrow */
 }
 
 .educationSection h2 {
@@ -410,7 +410,7 @@
   text-align: center; /* Center text */
   background-color: var(--background-color);
   position: relative; /* For positioning the arrow */
-  scroll-margin-top: 80px; /* Adjust for fixed nav */
+  scroll-margin-top: 7px; /* Adjust for fixed nav */
 }
 
 
