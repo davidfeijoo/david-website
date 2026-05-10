@@ -75,7 +75,9 @@ export default function ProjectsPage() {
   
   return (
     <main className="min-h-screen bg-[var(--background-color)]">
-      <section id="projects" className={styles.projectsSection}>
+      <section id="projects" className={`${styles.projectsSection} firstPageSection`}>
+        <h2>Projects</h2>
+        <p className={styles.educationSubtitle}>Research and ideas with real outcomes</p>
         <div className={styles.projectWrapper}>
           
           <div 

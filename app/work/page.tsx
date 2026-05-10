@@ -75,7 +75,9 @@ export default function WorkPage() {
   
   return (
     <main className="min-h-screen bg-[var(--background-color)]">
-      <section id="work" className={styles.projectsSection}>
+      <section id="work" className={`${styles.projectsSection} firstPageSection`}>
+        <h2>Experience</h2>
+        <p className={styles.educationSubtitle}>Teams and roles that shaped my career</p>
         <div className={styles.projectWrapper}>
           
           <div 

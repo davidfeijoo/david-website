@@ -1,5 +1,6 @@
 'use client'; // Mark the component as a client component
 import React, { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { IoIosArrowDown, IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { AiOutlineCloudDownload } from "react-icons/ai";
@@ -176,7 +177,7 @@ export default function Home() {
 
           <div className={styles.educationGrid} ref={educationGridRef}>
             {/* University 1: DTU */}
-            <div className={`${styles.educationCard} ${activeSection === "first-section" && activeEduIndex === 0 ? styles.activeCard : ''}`}>
+            <Link href="/education#dtu" className={`${styles.educationCard} ${activeSection === "first-section" && activeEduIndex === 0 ? styles.activeCard : ''}`}>
               <div className={styles.educationLogoContainer}>
                 <img src="/dtuLogo.png" alt="DTU Logo" className={`${styles.educationLogo} ${styles.light}`} />
                 <img src="/dtuLogo.png" alt="DTU Logo" className={`${styles.educationLogo} ${styles.dark}`} />
@@ -187,10 +188,10 @@ export default function Home() {
                 <br />
                 MSc in Mathematical Modelling and Computation.
               </p>
-            </div>
+            </Link>
 
             {/* University 2: UNSW */}
-            <div className={`${styles.educationCard} ${activeSection === "first-section" && activeEduIndex === 1 ? styles.activeCard : ''}`}>
+            <Link href="/education#unsw" className={`${styles.educationCard} ${activeSection === "first-section" && activeEduIndex === 1 ? styles.activeCard : ''}`}>
               <div className={styles.educationLogoContainer}>
                 <img src="/unswLogo.png" alt="UNSW Logo" className={`${styles.educationLogo} ${styles.light}`} />
                 <img src="/unswLogoWhite.png" alt="UNSW Logo" className={`${styles.educationLogo} ${styles.dark}`} />
@@ -201,10 +202,10 @@ export default function Home() {
                 <br />
                 Bachelor&apos;s Thesis in Signal Processing and Machine Learning.
               </p>
-            </div>
+            </Link>
 
             {/* University 3: UPC */}
-            <div className={`${styles.educationCard} ${activeSection === "first-section" && activeEduIndex === 2 ? styles.activeCard : ''}`}>
+            <Link href="/education#upc" className={`${styles.educationCard} ${activeSection === "first-section" && activeEduIndex === 2 ? styles.activeCard : ''}`}>
               <div className={styles.educationLogoContainer}>
                 <img src="/upcLogo.png" alt="UPC Logo" className={`${styles.educationLogo} ${styles.light}`} />
                 <img src="/upcLogo.png" alt="UPC Logo" className={`${styles.educationLogo} ${styles.dark}`} />
@@ -214,7 +215,7 @@ export default function Home() {
                 <strong>Polytechnical University of Catalonia (UPC)</strong>
                 BSc in Telecom Technologies Engineering
               </p>
-            </div>
+            </Link>
           </div>
 
           {/* Right Arrow */}
@@ -245,7 +246,7 @@ export default function Home() {
 
           <div className={styles.projectsGrid} ref={experienceGridRef}>
             {/* ECB */}
-            <div className={`${styles.projectCard} ${activeSection === "experience" && activeExpIndex === 0 ? styles.activeCard : ''}`}>
+            <Link href="/work" className={`${styles.projectCard} ${activeSection === "experience" && activeExpIndex === 0 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/ecbLogo.png" alt="ECB Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/ecbLogo.png" alt="ECB Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -256,10 +257,10 @@ export default function Home() {
                 <br />
                 Working at the Technology and Innovation Division.
               </p>
-            </div>
+            </Link>
 
             {/* CERN */}
-            <div className={`${styles.projectCard} ${activeSection === "experience" && activeExpIndex === 1 ? styles.activeCard : ''}`}>
+            <Link href="/work" className={`${styles.projectCard} ${activeSection === "experience" && activeExpIndex === 1 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/cern.png" alt="CERN Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/cern.png" alt="CERN Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -270,10 +271,10 @@ export default function Home() {
                 <br />
                 European Union project called Challenge Based Innovation.
               </p>
-            </div>
+            </Link>
 
             {/* Overlay */}
-            <div className={`${styles.projectCard} ${activeSection === "experience" && activeExpIndex === 2 ? styles.activeCard : ''}`}>
+            <Link href="/work" className={`${styles.projectCard} ${activeSection === "experience" && activeExpIndex === 2 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/overlay.png" alt="Overlay Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/overlay.png" alt="Overlay Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -284,7 +285,7 @@ export default function Home() {
                 <br />
                 Early-stage start-up developing multi-agentic systems.
               </p>
-            </div>
+            </Link>
           </div>
 
           <div 
@@ -312,7 +313,7 @@ export default function Home() {
 
           <div className={styles.projectsGrid} ref={projectsGridRef}>
             {/* SER */}
-            <div className={`${styles.projectCard} ${activeSection === "projects" && activeProjIndex === 0 ? styles.activeCard : ''}`}>
+            <Link href="/projects" className={`${styles.projectCard} ${activeSection === "projects" && activeProjIndex === 0 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/unswLogo.png" alt="SER Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/unswLogoWhite.png" alt="SER Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -323,10 +324,10 @@ export default function Home() {
                 <br />
                 Comparative analysis of methods for SER systems adaptation.
               </p>
-            </div>
+            </Link>
 
             {/* Uniraid */}
-            <div className={`${styles.projectCard} ${activeSection === "projects" && activeProjIndex === 1 ? styles.activeCard : ''}`}>
+            <Link href="/projects" className={`${styles.projectCard} ${activeSection === "projects" && activeProjIndex === 1 ? styles.activeCard : ''}`}>
               <div className={styles.projectLogoContainer}>
                 <img src="/uniraid.png" alt="UniRaid Logo" className={`${styles.projectLogo} ${styles.light}`} />
                 <img src="/uniraid.png" alt="UniRaid Logo" className={`${styles.projectLogo} ${styles.dark}`} />
@@ -337,7 +338,7 @@ export default function Home() {
                 <br />
                 Volunteer in this humanitarian rally that takes place in Morocco.
               </p>
-            </div>
+            </Link>
           </div>
 
           <div 

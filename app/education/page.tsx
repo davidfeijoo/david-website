@@ -207,7 +207,9 @@ export default function EducationPage() {
     <main className="min-h-screen bg-[var(--background-color)] pb-24">
       
       {/* 1. Overview Section with Vertical Cards (Home Style) */}
-      <section className={styles.educationSection}>
+      <section className={`${styles.educationSection} firstPageSection`}>
+        <h2>Education</h2>
+        <p className={styles.educationSubtitle}>Learn about my academic steps</p>
         <div className={styles.educationGrid} ref={educationGridRef}>
           {/* University 1: DTU */}
           <a href="#dtu" className={`${styles.educationCard} ${activeEduIndex === 0 ? styles.activeCard : ''}`}>

@@ -61,6 +61,21 @@
   margin-bottom: 0.5rem;
 }
 
+.educationSubtitle {
+  font-size: 1rem;
+  color: var(--secondary-color-strong);
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+/* Applied to the first section on sub-pages to always clear the fixed header */
+:global(section.firstPageSection) {
+  justify-content: flex-start;
+  padding-top: 95px;
+}
+
 .educationWrapper {
   position: relative;
   display: flex;
@@ -85,11 +100,31 @@
   display: none;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1199px) {
+  .educationGrid {
+    flex-wrap: nowrap;
+    overflow-x: visible;
+    max-width: 92vw;
+    gap: 1.5rem;
+    justify-content: center;
+    padding: 0.75rem 0;
+  }
+  .educationCard {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+  .educationImage {
+    width: calc(100% - 1rem);
+    max-width: 180px;
+  }
+}
+
+@media (min-width: 1200px) {
   .educationGrid {
     display: flex;
     flex-wrap: wrap;
-    gap: 4rem; /* Increased separation as requested */
+    gap: 4rem;
     max-width: 1200px;
     justify-content: center;
     overflow-x: visible;
@@ -436,11 +471,31 @@
   scroll-snap-type: x mandatory; /* Enable scroll snapping */
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1199px) {
+  .projectsGrid {
+    flex-wrap: nowrap;
+    overflow-x: visible;
+    max-width: 92vw;
+    gap: 1.5rem;
+    justify-content: center;
+    padding: 0.75rem 0;
+  }
+  .projectCard {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+  .projectImage {
+    width: calc(100% - 1rem);
+    max-width: 180px;
+  }
+}
+
+@media (min-width: 1200px) {
   .projectsGrid {
     display: flex;
     flex-wrap: wrap;
-    gap: 4rem; /* Match educationGrid separation */
+    gap: 4rem;
     max-width: 1200px;
     justify-content: center;
     overflow-x: visible;
@@ -508,6 +563,8 @@
   padding: 1.5rem; /* Match educationCard padding */
   border-radius: 20px; /* Match educationCard border-radius */
   scroll-snap-align: center; /* Snap card to center */
+  text-decoration: none;
+  color: inherit;
 }
 
 .projectCard:hover {
@@ -609,7 +666,7 @@
 }
 
 .contactImageContainer.enlarged {
-  transform: scale(3.5);
+  transform: scale(2);
   z-index: 1200;
   border-radius: 50%;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
@@ -748,15 +805,15 @@
     font-size: 0.8rem;
   }
 
-  /* Fit education section within mobile viewport (fixed nav is 80px) */
-  .educationSection, .projectsSection { 
-    min-height: auto; 
+  /* Fit education section within mobile viewport (fixed nav is ~82px) */
+  .educationSection, .projectsSection {
+    min-height: auto;
     padding: 10px 0 20px 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     scroll-snap-align: start;
-    scroll-margin-top: 70px;
+    scroll-margin-top: 90px;
   }
   .educationCard, .projectCard { width: 220px; padding: 0.75rem; }
   .educationCard.activeCard, .projectCard.activeCard {
